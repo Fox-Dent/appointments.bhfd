@@ -4,54 +4,81 @@
   <meta charset="UTF-8" />
   <title>Make an Appointment</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f6f7f8;
-      margin: 0;
-      padding: 0;
-    }
-    .container {
-      max-width: 600px;
-      margin: 40px auto;
-      background: #fff;
-      padding: 25px;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0,0,0,.1);
-    }
-    h2 {
-      margin-top: 0;
-    }
-    label {
-      display: block;
-      margin-top: 15px;
-      font-weight: bold;
-    }
-    select, input, button {
-      width: 100%;
-      padding: 10px;
-      margin-top: 5px;
-    }
-    button {
-      margin-top: 25px;
-      background: #0077cc;
-      color: #fff;
-      border: none;
-      cursor: pointer;
-      font-size: 16px;
-    }
-    button:hover {
-      background: #005fa3;
-    }
-    .hidden {
-      display: none;
-    }
-    .note {
-      font-size: 13px;
-      color: #666;
-      margin-top: 5px;
-    }
-  </style>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #f3efe8;
+    margin: 0;
+    padding: 0;
+    color: #1f2a24;
+  }
+
+  .container {
+    max-width: 600px;
+    margin: 40px auto;
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,.1);
+  }
+
+  h2 {
+    margin-top: 0;
+    color: #6f8f7a;
+  }
+
+  label {
+    display: block;
+    margin-top: 15px;
+    font-weight: bold;
+  }
+
+  select, input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 6px;
+    border: 1px solid #cfd6d1;
+    font-size: 15px;
+  }
+
+  select:focus, input:focus {
+    outline: none;
+    border-color: #6f8f7a;
+  }
+
+  button {
+    margin-top: 30px;
+    background: #6f8f7a;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    padding: 12px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+  }
+
+  button:hover {
+    background: #5f7f6a;
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  .note {
+    font-size: 13px;
+    color: #555;
+    margin-top: 8px;
+  }
+
+  input[type="checkbox"] {
+    width: auto;
+    margin-right: 8px;
+  }
+</style>
+
 </head>
 <body>
 
