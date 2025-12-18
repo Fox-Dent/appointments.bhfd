@@ -211,8 +211,8 @@
 </div>
 
 <script>
-  // ✅ Put your Cloudflare Worker base URL here (NO trailing slash)
-  const BACKEND_BASE_URL = "https://apptschebackend.calfier6456.workers.dev";
+  
+  const BACKEND_BASE_URL = "https://apptschedbackend.calcifer6456.workers.dev";
 
   function showStep(stepId) {
     document.querySelectorAll(".container > div").forEach((div) => {
