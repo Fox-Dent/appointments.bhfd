@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Make an Appointment</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f6f7f8;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 600px;
+      margin: 40px auto;
+      background: #fff;
+      padding: 25px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,.1);
+    }
+    h2 {
+      margin-top: 0;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    select, input, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+    }
+    button {
+      margin-top: 25px;
+      background: #0077cc;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background: #005fa3;
+    }
+    .hidden {
+      display: none;
+    }
+    .note {
+      font-size: 13px;
+      color: #666;
+      margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- STEP 1 -->
+  <div id="step1">
+    <h2>Make an Appointment</h2>
+
+    <label>Are you a new or existing patient?</label>
+    <select id="patientStatus">
+      <option value="">Select one</option>
+      <option value="new">New Patient</option>
+      <option value="existing">Existing Patient</option>
+    </select>
+
+    <button onclick="goToStep2()">Next</button>
+  </div>
+
+  <!-- STEP 2 -->
+  <div id="step2" class="hidden">
+    <h2>Appointment Type</h2>
+
+    <label>What are we coming in for today?</label>
+    <select id="appointmentType">
+      <option value="">Select appointment type</option>
+      <option value="emergency">Emergency</option>
+      <option value="consult">Consult Exam</option>
+      <option value="adult_cleaning">Checkup and Cleaning – Adult</option>
+      <option value="child_cleaning">Checkup and Cleaning – Child</option>
+    </select>
+
+    <button onclick="goToStep3()">Next</button>
+  </div>
+
+  <!-- STEP 3 -->
+  <div id="step3" class="hidden">
+    <h2>Who is this appointment for?</h2>
+
+    <label></label>
+    <select id="forWhom">
+      <option value="">Select one</option>
+      <option value="self">I’m making this appointment for myself</option>
+      <option value="other">I’m making this appointment for someone else</option>
+    </select>
+
+    <button onclick="goToStep4()">Next</button>
+  </div>
+
+  <!-- STEP 4 -->
+  <div id="step4" class="hidden">
+    <h2>Patient Information</h2>
+
+    <label>First Name</label>
+    <input type="text" />
+
+    <label>Last Name</label>
+    <input type="text" />
+
+    <label>Date of Birth</label>
+    <input type="date" />
+
+    <label>Contact Phone Number</label>
+    <input type="tel" />
+
+    <label>Contact Email</label>
+    <input type="email" />
+
+    <button onclick="goToStep5()">Next</button>
+  </div>
+
+  <!-- STEP 5 -->
+  <div id="step5" class="hidden">
+    <h2>Insurance Information</h2>
+
+    <label>
+      <input type="checkbox" id="noInsurance" onchange="toggleInsurance()" />
+      I don’t have insurance, I will be paying out of pocket
+    </label>
+
+    <div id="insuranceFields">
+      <label>Insurance Carrier</label>
+      <input type="text" />
+
+      <label>Policy Holder Name</label>
+      <input type="text" />
+
+      <label>Policy Holder Date of Birth</label>
+      <input type="date" />
+
+      <label>Social Security Number</label>
+      <input type="password" />
+
+      <label>Member ID</label>
+      <input type="text" />
+
+      <label>Employer / Group Name</label>
+      <input type="text" />
+
+      <label>Group ID</label>
+      <input type="text" />
+
+      <label>Postal Code</label>
+      <input type="text" />
+    </div>
+
+    <button onclick="goToStep6()">Next</button>
+  </div>
+
+  <!-- STEP 6 -->
+  <div id="step6" class="hidden">
+    <h2>Select Appointment Date & Time</h2>
+
+    <p class="note">
+      Available appointments shown below are based on real-time availability.
+    </p>
+
+    <label>Select a Date</label>
+    <input type="date" id="appointmentDate" />
+
+    <label>Select a Time</label>
+    <select id="appointmentTime">
+      <option value="">Select a time</option>
+      <!-- This will be populated from Open Dental via backend -->
+    </select>
+
+    <button onclick="submitRequest()">Confirm Appointment</button>
+  </div>
+
+</div>
+
+<script>
+  function showStep(step) {
+    document.querySelectorAll(".container > div").forEach(div => div.classList.add("hidden"));
+    document.getElementById(step).classList.remove("hidden");
+  }
+
+  function goToStep2() { showStep("step2"); }
+  function goToStep3() { showStep("step3"); }
+  function goToStep4() { showStep("step4"); }
+  function goToStep5() { showStep("step5"); }
+  function goToStep6() { showStep("step6"); }
+
+  function toggleInsurance() {
+    document.getElementById("insuranceFields").style.display =
+      document.getElementById("noInsurance").checked ? "none" : "block";
+  }
+
+  function submitRequest() {
+    alert("Appointment request submitted.\n(Backend integration comes next.)");
+  }
+</script>
+
+</body>
+</html>
