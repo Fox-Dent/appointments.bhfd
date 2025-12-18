@@ -211,19 +211,76 @@
 </div>
 
 <script>
-  function showStep(step) { ... }
-  function goToStep2() { ... }
-  function submitRequest() { ... }
+  // ✅ Put your Cloudflare Worker base URL here (NO trailing slash)
+  const BACKEND_BASE_URL = "https://apptschebackend.calfier6456.workers.dev";
 
-  const BACKEND_BASE_URL = "https://apptschedbackend.calcifer6456.workers.dev";
+  function showStep(stepId) {
+    document.querySelectorAll(".container > div").forEach((div) => {
+      div.classList.add("hidden");
+    });
+    document.getElementById(stepId).classList.remove("hidden");
+  }
+
+  function goToStep2() {
+    const status = document.getElementById("patientStatus")?.value;
+    if (!status) {
+      alert("Please select New Patient or Existing Patient.");
+      return;
+    }
+    showStep("step2");
+  }
+
+  function goToStep3() {
+    const type = document.getElementById("appointmentType")?.value;
+    if (!type) {
+      alert("Please select an appointment type.");
+      return;
+    }
+    showStep("step3");
+  }
+
+  function goToStep4() {
+    const forWhom = document.getElementById("forWhom")?.value;
+    if (!forWhom) {
+      alert("Please choose whether this appointment is for yourself or someone else.");
+      return;
+    }
+    showStep("step4");
+  }
+
+  function goToStep5() {
+    // Basic required checks for Step 4 fields (assumes the first 5 inputs in step4 are yours)
+    const step4 = document.getElementById("step4");
+    const inputs = step4.querySelectorAll("input");
+    const [first, last, dob, phone, email] = inputs;
+
+    if (!first.value.trim() || !last.value.trim() || !dob.value || !phone.value.trim() || !email.value.trim()) {
+      alert("Please complete all patient information fields.");
+      return;
+    }
+    showStep("step5");
+  }
+
+  function goToStep6() {
+    showStep("step6");
+  }
+
+  function toggleInsurance() {
+    const noIns = document.getElementById("noInsurance")?.checked;
+    const fields = document.getElementById("insuranceFields");
+    if (fields) fields.style.display = noIns ? "none" : "block";
+  }
 
   async function fetchAvailabilityForSelectedDate() {
     const dateInput = document.getElementById("appointmentDate");
     const timeSelect = document.getElementById("appointmentTime");
 
+    if (!dateInput || !timeSelect) return;
+
     const selectedDate = dateInput.value;
 
-   timeSelect.innerHTML = '<option value="">Select a time</option>';
+    // Reset dropdown
+    timeSelect.innerHTML = '<option value="">Select a time</option>';
 
     if (!selectedDate) return;
 
@@ -232,9 +289,20 @@
         `${BACKEND_BASE_URL}/availability?date=${encodeURIComponent(selectedDate)}`
       );
 
-      const data = await response.json();
+      if (!response.ok) throw new Error(`Backend error: ${response.status}`);
 
-      data.slots.forEach((slot) => {
+      const data = await response.json();
+      const slots = data.slots || [];
+
+      if (!slots.length) {
+        const opt = document.createElement("option");
+        opt.value = "";
+        opt.textContent = "No times available";
+        timeSelect.appendChild(opt);
+        return;
+      }
+
+      slots.forEach((slot) => {
         const option = document.createElement("option");
         option.value = slot;
         option.textContent = slot;
@@ -244,6 +312,18 @@
       console.error(error);
       alert("Unable to load available times. Please try again.");
     }
+  }
+
+  function submitRequest() {
+    const date = document.getElementById("appointmentDate")?.value;
+    const time = document.getElementById("appointmentTime")?.value;
+
+    if (!date || !time) {
+      alert("Please select a date and time.");
+      return;
+    }
+
+    alert(`Appointment selected:\n${date} at ${time}\n\n(Booking submission comes next.)`);
   }
 </script>
 
