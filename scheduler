@@ -271,48 +271,71 @@
     if (fields) fields.style.display = noIns ? "none" : "block";
   }
 
-  async function fetchAvailabilityForSelectedDate() {
-    const dateInput = document.getElementById("appointmentDate");
-    const timeSelect = document.getElementById("appointmentTime");
+async function submitRequest() {
+  const appointmentDate = document.getElementById("appointmentDate")?.value;
+  const appointmentTime = document.getElementById("appointmentTime")?.value;
 
-    if (!dateInput || !timeSelect) return;
-
-    const selectedDate = dateInput.value;
-
-    // Reset dropdown
-    timeSelect.innerHTML = '<option value="">Select a time</option>';
-
-    if (!selectedDate) return;
-
-    try {
-      const response = await fetch(
-        `${BACKEND_BASE_URL}/availability?date=${encodeURIComponent(selectedDate)}`
-      );
-
-      if (!response.ok) throw new Error(`Backend error: ${response.status}`);
-
-      const data = await response.json();
-      const slots = data.slots || [];
-
-      if (!slots.length) {
-        const opt = document.createElement("option");
-        opt.value = "";
-        opt.textContent = "No times available";
-        timeSelect.appendChild(opt);
-        return;
-      }
-
-      slots.forEach((slot) => {
-        const option = document.createElement("option");
-        option.value = slot;
-        option.textContent = slot;
-        timeSelect.appendChild(option);
-      });
-    } catch (error) {
-      console.error(error);
-      alert("Unable to load available times. Please try again.");
-    }
+  if (!appointmentDate || !appointmentTime) {
+    alert("Please select a date and time.");
+    return;
   }
+
+  // Pull patient fields (adjust selectors if your inputs differ)
+  const step4 = document.getElementById("step4");
+  const inputs = step4.querySelectorAll("input");
+  const [first, last, dob, phone, email] = inputs;
+
+  const payload = {
+    appointmentDate,
+    appointmentTime,
+    patient: {
+      firstName: first?.value?.trim(),
+      lastName: last?.value?.trim(),
+      dob: dob?.value || "",
+      phone: phone?.value?.trim() || "",
+      email: email?.value?.trim() || ""
+    }
+  };
+
+  try {
+    const res = await fetch(`${BACKEND_BASE_URL}/book`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
+
+    const data = await res.json();
+
+    if (!res.ok || !data.ok) {
+      alert(data.error || "Booking failed. Please try again.");
+      return;
+    }
+
+    // ✅ “Notification” that costs $0: on-screen confirmation + optional prefilled email
+    alert(
+      `Appointment booked!\n\nConfirmation: ${data.confirmationId}\n` +
+      `${data.appointmentDate} at ${data.appointmentTime}\n\n` +
+      `A confirmation notice can be sent next.`
+    );
+
+    // Optional: open patient's email app with a prefilled confirmation (free, no provider)
+    if (payload.patient.email) {
+      const subject = encodeURIComponent("Your Brook Hollow Family Dentistry Appointment Confirmation");
+      const body = encodeURIComponent(
+        `Hi ${data.patientName},\n\n` +
+        `Your appointment is confirmed for ${data.appointmentDate} at ${data.appointmentTime}.\n` +
+        `Confirmation #: ${data.confirmationId}\n\n` +
+        `If you need to change or cancel, please call the office.\n\n` +
+        `— Brook Hollow Family Dentistry`
+      );
+      window.location.href = `mailto:${payload.patient.email}?subject=${subject}&body=${body}`;
+    }
+
+  } catch (err) {
+    console.error(err);
+    alert("Unable to book appointment right now. Please try again.");
+  }
+}
 
   function submitRequest() {
     const date = document.getElementById("appointmentDate")?.value;
