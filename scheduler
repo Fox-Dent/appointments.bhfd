@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Welcome to Brook Hollow Family Dentistry</title>
+  <title>Make An Appointment</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 <style>
   body {
@@ -86,7 +86,7 @@
 
   <!-- STEP 1 -->
   <div id="step1">
-    <h2>Make an Appointment</h2>
+    <h2>Welcome to Brook Hollow Family Dentistry</h2>
 
     <label>Are you a new or existing patient?</label>
     <select id="patientStatus">
