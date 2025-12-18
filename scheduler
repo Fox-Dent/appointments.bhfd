@@ -211,27 +211,11 @@
 </div>
 
 <script>
-  function showStep(step) {
-    document.querySelectorAll(".container > div").forEach(div => div.classList.add("hidden"));
-    document.getElementById(step).classList.remove("hidden");
-  }
+  function showStep(step) { ... }
+  function goToStep2() { ... }
+  function submitRequest() { ... }
 
-  function goToStep2() { showStep("step2"); }
-  function goToStep3() { showStep("step3"); }
-  function goToStep4() { showStep("step4"); }
-  function goToStep5() { showStep("step5"); }
-  function goToStep6() { showStep("step6"); }
-
-  function toggleInsurance() {
-    document.getElementById("insuranceFields").style.display =
-      document.getElementById("noInsurance").checked ? "none" : "block";
-  }
-
-  function submitRequest() {
-    alert("Appointment request submitted.\n(Backend integration comes next.)");
-  }
-<script>
-  const BACKEND_BASE_URL = "https://apptschedbackend.calcifer6456.workers.dev/";
+  const BACKEND_BASE_URL = "https://apptschedbackend.calcifer6456.workers.dev";
 
   async function fetchAvailabilityForSelectedDate() {
     const dateInput = document.getElementById("appointmentDate");
@@ -239,7 +223,7 @@
 
     const selectedDate = dateInput.value;
 
-    timeSelect.innerHTML = `<option value="">Select a time</option>`;
+   timeSelect.innerHTML = '<option value="">Select a time</option>';
 
     if (!selectedDate) return;
 
