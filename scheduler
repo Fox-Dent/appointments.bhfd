@@ -197,7 +197,7 @@
     </p>
 
     <label>Select a Date</label>
-    <input type="date" id="appointmentDate" />
+    <input type="date" id="appointmentDate" onchange="fetchAvailabilityForSelectedDate()" />
 
     <label>Select a Time</label>
     <select id="appointmentTime">
@@ -230,6 +230,39 @@
   function submitRequest() {
     alert("Appointment request submitted.\n(Backend integration comes next.)");
   }
+<script>
+  const BACKEND_BASE_URL = "https://apptschedbackend.calcifer6456.workers.dev/";
+
+  async function fetchAvailabilityForSelectedDate() {
+    const dateInput = document.getElementById("appointmentDate");
+    const timeSelect = document.getElementById("appointmentTime");
+
+    const selectedDate = dateInput.value;
+
+    timeSelect.innerHTML = `<option value="">Select a time</option>`;
+
+    if (!selectedDate) return;
+
+    try {
+      const response = await fetch(
+        `${BACKEND_BASE_URL}/availability?date=${encodeURIComponent(selectedDate)}`
+      );
+
+      const data = await response.json();
+
+      data.slots.forEach((slot) => {
+        const option = document.createElement("option");
+        option.value = slot;
+        option.textContent = slot;
+        timeSelect.appendChild(option);
+      });
+    } catch (error) {
+      console.error(error);
+      alert("Unable to load available times. Please try again.");
+    }
+  }
+</script>
+
 </script>
 
 </body>
