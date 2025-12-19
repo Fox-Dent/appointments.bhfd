@@ -238,6 +238,12 @@
       <input type="text" />
     </div>
 
+<div class="button-row">
+      <button class="back-btn" onclick="showStep('step4')">Back</button>
+      <button onclick="goToStep6()">Next</button>
+    </div>
+  </div>
+
 <!-- STEP 6 -->
   <div id="step6" class="hidden">
     <h2>Select Appointment Date & Time</h2>
