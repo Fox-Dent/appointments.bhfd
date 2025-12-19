@@ -143,7 +143,7 @@
     <button onclick="goToStep2()">Next</button>
   </div>
 
-  <!-- STEP 2 -->
+    <!-- STEP 2 -->
   <div id="step2" class="hidden">
     <h2>Appointment Type</h2>
 
@@ -156,26 +156,27 @@
       <option value="child_cleaning">Checkup and Cleaning – Child</option>
     </select>
 
-   <div class="button-row">
-  <button class="back-btn" onclick="showStep('step1')">Back</button>
-  <button onclick="goToStep3()">Next</button>
-</div>
+    <div class="button-row">
+      <button class="back-btn" onclick="showStep('step1')">Back</button>
+      <button onclick="goToStep3()">Next</button>
+    </div>
+  </div>
 
   <!-- STEP 3 -->
   <div id="step3" class="hidden">
     <h2>Who is this appointment for?</h2>
 
-    <label></label>
     <select id="forWhom">
       <option value="">Select one</option>
       <option value="self">I’m making this appointment for myself</option>
       <option value="other">I’m making this appointment for someone else</option>
     </select>
 
-   <div class="button-row">
-  <button class="back-btn" onclick="showStep('step2')">Back</button>
-  <button onclick="goToStep4()">Next</button>
-</div>
+    <div class="button-row">
+      <button class="back-btn" onclick="showStep('step2')">Back</button>
+      <button onclick="goToStep4()">Next</button>
+    </div>
+  </div>
 
   <!-- STEP 4 -->
   <div id="step4" class="hidden">
@@ -197,9 +198,10 @@
     <input type="email" />
 
     <div class="button-row">
-  <button class="back-btn" onclick="showStep('step3')">Back</button>
-  <button onclick="goToStep5()">Next</button>
-</div>
+      <button class="back-btn" onclick="showStep('step3')">Back</button>
+      <button onclick="goToStep5()">Next</button>
+    </div>
+  </div>
 
   <!-- STEP 5 -->
   <div id="step5" class="hidden">
@@ -236,13 +238,7 @@
       <input type="text" />
     </div>
 
-   <div class="button-row">
-  <button class="back-btn" onclick="showStep('step4')">Back</button>
-  <button onclick="goToStep6()">Next</button>
-</div>
-
-
-  <!-- STEP 6 -->
+<!-- STEP 6 -->
   <div id="step6" class="hidden">
     <h2>Select Appointment Date & Time</h2>
 
@@ -256,15 +252,13 @@
     <label>Select a Time</label>
     <select id="appointmentTime">
       <option value="">Select a time</option>
-      <!-- This will be populated from Open Dental via backend -->
     </select>
 
     <div class="button-row">
-  <button class="back-btn" onclick="showStep('step5')">Back</button>
-  <button onclick="submitRequest()">Confirm Appointment</button>
-</div>
-
-</div>
+      <button class="back-btn" onclick="showStep('step5')">Back</button>
+      <button onclick="submitRequest()">Confirm Appointment</button>
+    </div>
+  </div>
 
 <script>
   
@@ -395,17 +389,6 @@ async function submitRequest() {
   }
 }
 
-  function submitRequest() {
-    const date = document.getElementById("appointmentDate")?.value;
-    const time = document.getElementById("appointmentTime")?.value;
-
-    if (!date || !time) {
-      alert("Please select a date and time.");
-      return;
-    }
-
-    alert(`Appointment selected:\n${date} at ${time}\n\n(Booking submission comes next.)`);
-  }
 </script>
 
 </body>
