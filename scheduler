@@ -63,6 +63,26 @@
     background: #5f7f6a;
   }
 
+.button-row {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 25px;
+  gap: 10px;
+}
+
+.button-row button {
+  width: 48%;
+}
+
+.back-btn {
+  background: #d9d4cc; /* beige/sand */
+  color: #1f2a24;
+}
+
+.back-btn:hover {
+  background: #cfc9bf;
+}
+
   .hidden {
     display: none;
   }
@@ -126,8 +146,10 @@
       <option value="child_cleaning">Checkup and Cleaning – Child</option>
     </select>
 
-    <button onclick="goToStep3()">Next</button>
-  </div>
+   <div class="button-row">
+  <button class="back-btn" onclick="showStep('step1')">Back</button>
+  <button onclick="goToStep3()">Next</button>
+</div>
 
   <!-- STEP 3 -->
   <div id="step3" class="hidden">
@@ -140,8 +162,10 @@
       <option value="other">I’m making this appointment for someone else</option>
     </select>
 
-    <button onclick="goToStep4()">Next</button>
-  </div>
+   <div class="button-row">
+  <button class="back-btn" onclick="showStep('step2')">Back</button>
+  <button onclick="goToStep4()">Next</button>
+</div>
 
   <!-- STEP 4 -->
   <div id="step4" class="hidden">
@@ -162,8 +186,10 @@
     <label>Contact Email</label>
     <input type="email" />
 
-    <button onclick="goToStep5()">Next</button>
-  </div>
+    <div class="button-row">
+  <button class="back-btn" onclick="showStep('step3')">Back</button>
+  <button onclick="goToStep5()">Next</button>
+</div>
 
   <!-- STEP 5 -->
   <div id="step5" class="hidden">
@@ -200,8 +226,11 @@
       <input type="text" />
     </div>
 
-    <button onclick="goToStep6()">Next</button>
-  </div>
+   <div class="button-row">
+  <button class="back-btn" onclick="showStep('step4')">Back</button>
+  <button onclick="goToStep6()">Next</button>
+</div>
+
 
   <!-- STEP 6 -->
   <div id="step6" class="hidden">
@@ -220,8 +249,10 @@
       <!-- This will be populated from Open Dental via backend -->
     </select>
 
-    <button onclick="submitRequest()">Confirm Appointment</button>
-  </div>
+    <div class="button-row">
+  <button class="back-btn" onclick="showStep('step5')">Back</button>
+  <button onclick="submitRequest()">Confirm Appointment</button>
+</div>
 
 </div>
 
