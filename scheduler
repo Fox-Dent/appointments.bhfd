@@ -329,6 +329,51 @@
     if (fields) fields.style.display = noIns ? "none" : "block";
   }
 
+async function fetchAvailabilityForSelectedDate() {
+  const dateInput = document.getElementById("appointmentDate");
+  const timeSelect = document.getElementById("appointmentTime");
+
+  if (!dateInput || !timeSelect) return;
+
+  const selectedDate = dateInput.value;
+
+  // Reset dropdown
+  timeSelect.innerHTML = '<option value="">Loading available times...</option>';
+
+  if (!selectedDate) return;
+
+  try {
+    const res = await fetch(
+      `${BACKEND_BASE_URL}/availability?date=${encodeURIComponent(selectedDate)}`
+    );
+
+    if (!res.ok) throw new Error("Failed to fetch availability");
+
+    const data = await res.json();
+
+    timeSelect.innerHTML = '<option value="">Select a time</option>';
+
+    if (!data.slots || data.slots.length === 0) {
+      timeSelect.innerHTML =
+        '<option value="">No available times for this date</option>';
+      return;
+    }
+
+    data.slots.forEach((slot) => {
+      const option = document.createElement("option");
+      option.value = slot;
+      option.textContent = slot;
+      timeSelect.appendChild(option);
+    });
+
+  } catch (err) {
+    console.error(err);
+    timeSelect.innerHTML =
+      '<option value="">Unable to load times</option>';
+    alert("Unable to load available times. Please try again.");
+  }
+}
+
 async function submitRequest() {
   const appointmentDate = document.getElementById("appointmentDate")?.value;
   const appointmentTime = document.getElementById("appointmentTime")?.value;
