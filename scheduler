@@ -385,17 +385,32 @@ async function submitRequest() {
   const inputs = step4.querySelectorAll("input");
   const [first, last, dob, phone, email] = inputs;
 
+const noInsurance = document.getElementById("noInsurance")?.checked;
+
+const insurance = noInsurance ? { noInsurance: true } : {
+  noInsurance: false,
+  carrier: document.getElementById("insCarrier")?.value?.trim() || "",
+  policyHolderName: document.getElementById("insPolicyHolderName")?.value?.trim() || "",
+  policyHolderDob: document.getElementById("insPolicyHolderDob")?.value || "",
+  memberId: document.getElementById("insMemberId")?.value?.trim() || "",
+  employer: document.getElementById("insEmployer")?.value?.trim() || "",
+  groupId: document.getElementById("insGroupId")?.value?.trim() || "",
+  zip: document.getElementById("insZip")?.value?.trim() || ""
+};
+
   const payload = {
-    appointmentDate,
-    appointmentTime,
-    patient: {
-      firstName: first?.value?.trim(),
-      lastName: last?.value?.trim(),
-      dob: dob?.value || "",
-      phone: phone?.value?.trim() || "",
-      email: email?.value?.trim() || ""
-    }
-  };
+  appointmentDate,
+  appointmentTime,
+  patient: {
+    firstName: first?.value?.trim(),
+    lastName: last?.value?.trim(),
+    dob: dob?.value || "",
+    phone: phone?.value?.trim() || "",
+    email: email?.value?.trim() || ""
+  },
+  insurance
+};
+
 
   try {
     const res = await fetch(`${BACKEND_BASE_URL}/book`, {
