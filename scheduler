@@ -213,26 +213,26 @@
     </label>
 
     <div id="insuranceFields">
-      <label>Insurance Carrier</label>
-      <input type="text" />
+    <label>Insurance Carrier</label>
+    <input type="text" id="insCarrier" />
 
-      <label>Policy Holder Name</label>
-      <input type="text" />
+    <label>Policy Holder Name</label>
+    <input type="text" id="insPolicyHolderName" />
 
-      <label>Policy Holder Date of Birth</label>
-      <input type="date" />
+    <label>Policy Holder Date of Birth</label>
+    <input type="date" id="insPolicyHolderDob" />
 
-      <label>Member ID</label>
-      <input type="text" />
+    <label>Member ID</label>
+    <input type="text" id="insMemberId" />
 
-      <label>Employer / Group Name</label>
-      <input type="text" />
+    <label>Employer / Group Name</label>
+    <input type="text" id="insEmployer" />
 
-      <label>Group ID</label>
-      <input type="text" />
+    <label>Group ID</label>
+    <input type="text" id="insGroupId" />
 
-      <label>Postal Code</label>
-      <input type="text" />
+    <label>Postal Code</label>
+    <input type="text" id="insZip" />
     </div>
 
 <div class="button-row">
