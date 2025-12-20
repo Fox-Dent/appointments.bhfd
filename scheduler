@@ -265,7 +265,7 @@
 
 <script>
   
-  const BACKEND_BASE_URL = "https://foxdentscheduling.calcifer6456.workers.dev";
+  const BACKEND_BASE_URL = "https://foxdentscheduling.calcifer6456.workers.dev/";
 
   function showStep(stepId) {
   // Hide ONLY step sections, not the header/brand area
