@@ -4,130 +4,131 @@
   <meta charset="UTF-8" />
   <title>FoxDentScheduling</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-<style>
-  body {
-    font-family: Arial, sans-serif;
-    background: #f3efe8;
-    margin: 0;
-    padding: 0;
-    color: #1f2a24;
-  }
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f3efe8;
+      margin: 0;
+      padding: 0;
+      color: #1f2a24;
+    }
 
-  .container {
-    max-width: 600px;
-    margin: 40px auto;
-    background: #ffffff;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0,0,0,.1);
-  }
+    .container {
+      max-width: 600px;
+      margin: 40px auto;
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,.1);
+    }
 
-  h2 {
-    margin-top: 0;
-    color: #6f8f7a;
-  }
+    h2 {
+      margin-top: 0;
+      color: #6f8f7a;
+    }
 
-  label {
-    display: block;
-    margin-top: 15px;
-    font-weight: bold;
-  }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
 
-  select, input {
-    width: 100%;
-    padding: 10px;
-    margin-top: 5px;
-    border-radius: 6px;
-    border: 1px solid #cfd6d1;
-    font-size: 15px;
-  }
+    select, input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 6px;
+      border: 1px solid #cfd6d1;
+      font-size: 15px;
+    }
 
-  select:focus, input:focus {
-    outline: none;
-    border-color: #6f8f7a;
-  }
+    select:focus, input:focus {
+      outline: none;
+      border-color: #6f8f7a;
+    }
 
-  button {
-    margin-top: 30px;
-    background: #6f8f7a;
-    color: #ffffff;
-    border: none;
-    border-radius: 6px;
-    padding: 12px;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: bold;
-  }
+    button {
+      margin-top: 30px;
+      background: #6f8f7a;
+      color: #ffffff;
+      border: none;
+      border-radius: 6px;
+      padding: 12px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: bold;
+    }
 
-  button:hover {
-    background: #5f7f6a;
-  }
+    button:hover {
+      background: #5f7f6a;
+    }
 
-.button-row {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 25px;
-  gap: 10px;
-}
+    .button-row {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 25px;
+      gap: 10px;
+    }
 
-.button-row button {
-  width: 48%;
-}
+    .button-row button {
+      width: 48%;
+    }
 
-.back-btn {
-  background: #d9d4cc; /* beige/sand */
-  color: #1f2a24;
-}
+    .back-btn {
+      background: #d9d4cc; /* beige/sand */
+      color: #1f2a24;
+    }
 
-.back-btn:hover {
-  background: #cfc9bf;
-}
+    .back-btn:hover {
+      background: #cfc9bf;
+    }
 
-  .hidden {
-    display: none;
-  }
+    .hidden {
+      display: none;
+    }
 
-  .note {
-    font-size: 13px;
-    color: #555;
-    margin-top: 8px;
-  }
+    .note {
+      font-size: 13px;
+      color: #555;
+      margin-top: 8px;
+    }
 
-  input[type="checkbox"] {
-    width: auto;
-    margin-right: 8px;
-  }
+    input[type="checkbox"] {
+      width: auto;
+      margin-right: 8px;
+    }
 
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 20px;
-}
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
 
-.logo {
-  max-width: 60px;   /* keeps it subtle */
-  width: 60px;
-  height: auto;
-}
+    .logo {
+      max-width: 60px;   /* keeps it subtle */
+      width: 60px;
+      height: auto;
+    }
 
-.brand-text {
-  font-size: 14px;
-  font-weight: 600;
-  color: #1f2a24; /* dark neutral */
-  opacity: 0.85;
-}
-
-</style>
-
+    .brand-text {
+      font-size: 14px;
+      font-weight: 600;
+      color: #1f2a24; /* dark neutral */
+      opacity: 0.85;
+    }
+  </style>
 </head>
+
 <body>
 
 <div class="container">
-<div class="brand">
-  <img src="./FoxDentLogo.png" alt="FoxDent" class="logo">
-  <div class="brand-text">Powered by FoxDent</div>
-</div>
+  <div class="brand">
+    <!-- IMPORTANT: no ./ here -->
+    <img src="FoxDentLogo.png" alt="FoxDent" class="logo"
+         onerror="this.style.display='none'; console.error('Logo failed to load. Check filename/case + GitHub Pages path.');">
+    <div class="brand-text">Powered by FoxDent</div>
+  </div>
 
   <!-- STEP 1 -->
   <div id="step1">
@@ -140,10 +141,10 @@
       <option value="existing">Existing Patient</option>
     </select>
 
-    <button onclick="goToStep2()">Next</button>
+    <button type="button" onclick="goToStep2()">Next</button>
   </div>
 
-    <!-- STEP 2 -->
+  <!-- STEP 2 -->
   <div id="step2" class="hidden">
     <h2>Appointment Type</h2>
 
@@ -157,8 +158,8 @@
     </select>
 
     <div class="button-row">
-      <button class="back-btn" onclick="showStep('step1')">Back</button>
-      <button onclick="goToStep3()">Next</button>
+      <button type="button" class="back-btn" onclick="showStep('step1')">Back</button>
+      <button type="button" onclick="goToStep3()">Next</button>
     </div>
   </div>
 
@@ -173,8 +174,8 @@
     </select>
 
     <div class="button-row">
-      <button class="back-btn" onclick="showStep('step2')">Back</button>
-      <button onclick="goToStep4()">Next</button>
+      <button type="button" class="back-btn" onclick="showStep('step2')">Back</button>
+      <button type="button" onclick="goToStep4()">Next</button>
     </div>
   </div>
 
@@ -198,8 +199,8 @@
     <input type="email" />
 
     <div class="button-row">
-      <button class="back-btn" onclick="showStep('step3')">Back</button>
-      <button onclick="goToStep5()">Next</button>
+      <button type="button" class="back-btn" onclick="showStep('step3')">Back</button>
+      <button type="button" onclick="goToStep5()">Next</button>
     </div>
   </div>
 
@@ -213,35 +214,35 @@
     </label>
 
     <div id="insuranceFields">
-    <label>Insurance Carrier</label>
-    <input type="text" id="insCarrier" />
+      <label>Insurance Carrier</label>
+      <input type="text" id="insCarrier" />
 
-    <label>Policy Holder Name</label>
-    <input type="text" id="insPolicyHolderName" />
+      <label>Policy Holder Name</label>
+      <input type="text" id="insPolicyHolderName" />
 
-    <label>Policy Holder Date of Birth</label>
-    <input type="date" id="insPolicyHolderDob" />
+      <label>Policy Holder Date of Birth</label>
+      <input type="date" id="insPolicyHolderDob" />
 
-    <label>Member ID</label>
-    <input type="text" id="insMemberId" />
+      <label>Member ID</label>
+      <input type="text" id="insMemberId" />
 
-    <label>Employer / Group Name</label>
-    <input type="text" id="insEmployer" />
+      <label>Employer / Group Name</label>
+      <input type="text" id="insEmployer" />
 
-    <label>Group ID</label>
-    <input type="text" id="insGroupId" />
+      <label>Group ID</label>
+      <input type="text" id="insGroupId" />
 
-    <label>Postal Code</label>
-    <input type="text" id="insZip" />
+      <label>Postal Code</label>
+      <input type="text" id="insZip" />
     </div>
 
-<div class="button-row">
-      <button class="back-btn" onclick="showStep('step4')">Back</button>
-      <button onclick="goToStep6()">Next</button>
+    <div class="button-row">
+      <button type="button" class="back-btn" onclick="showStep('step4')">Back</button>
+      <button type="button" onclick="goToStep6()">Next</button>
     </div>
   </div>
 
-<!-- STEP 6 -->
+  <!-- STEP 6 -->
   <div id="step6" class="hidden">
     <h2>Select Appointment Date & Time</h2>
 
@@ -258,23 +259,22 @@
     </select>
 
     <div class="button-row">
-      <button class="back-btn" onclick="showStep('step5')">Back</button>
-      <button onclick="submitRequest()">Confirm Appointment</button>
+      <button type="button" class="back-btn" onclick="showStep('step5')">Back</button>
+      <button type="button" onclick="submitRequest()">Confirm Appointment</button>
     </div>
   </div>
+</div>
 
 <script>
-  
-  const BACKEND_BASE_URL = "https://foxdentscheduling.calcifer6456.workers.dev/";
+  // IMPORTANT: no trailing slash
+  const BACKEND_BASE_URL = "https://foxdentscheduling.calcifer6456.workers.dev";
 
   function showStep(stepId) {
-  // Hide ONLY step sections, not the header/brand area
-  document.querySelectorAll('[id^="step"]').forEach((div) => {
-    div.classList.add("hidden");
-  });
-
-  document.getElementById(stepId).classList.remove("hidden");
-}
+    document.querySelectorAll('[id^="step"]').forEach((div) => {
+      div.classList.add("hidden");
+    });
+    document.getElementById(stepId).classList.remove("hidden");
+  }
 
   function goToStep2() {
     const status = document.getElementById("patientStatus")?.value;
@@ -304,7 +304,6 @@
   }
 
   function goToStep5() {
-    // Basic required checks for Step 4 fields (assumes the first 5 inputs in step4 are yours)
     const step4 = document.getElementById("step4");
     const inputs = step4.querySelectorAll("input");
     const [first, last, dob, phone, email] = inputs;
@@ -326,132 +325,119 @@
     if (fields) fields.style.display = noIns ? "none" : "block";
   }
 
-async function fetchAvailabilityForSelectedDate() {
-  const dateInput = document.getElementById("appointmentDate");
-  const timeSelect = document.getElementById("appointmentTime");
+  async function fetchAvailabilityForSelectedDate() {
+    const dateInput = document.getElementById("appointmentDate");
+    const timeSelect = document.getElementById("appointmentTime");
+    if (!dateInput || !timeSelect) return;
 
-  if (!dateInput || !timeSelect) return;
+    const selectedDate = dateInput.value;
 
-  const selectedDate = dateInput.value;
+    timeSelect.innerHTML = '<option value="">Loading available times...</option>';
+    if (!selectedDate) return;
 
-  // Reset dropdown
-  timeSelect.innerHTML = '<option value="">Loading available times...</option>';
+    try {
+      const res = await fetch(`${BACKEND_BASE_URL}/availability?date=${encodeURIComponent(selectedDate)}`);
+      if (!res.ok) throw new Error("Failed to fetch availability");
 
-  if (!selectedDate) return;
+      const data = await res.json();
 
-  try {
-    const res = await fetch(
-      `${BACKEND_BASE_URL}/availability?date=${encodeURIComponent(selectedDate)}`
-    );
+      timeSelect.innerHTML = '<option value="">Select a time</option>';
 
-    if (!res.ok) throw new Error("Failed to fetch availability");
+      if (!data.slots || data.slots.length === 0) {
+        timeSelect.innerHTML = '<option value="">No available times for this date</option>';
+        return;
+      }
 
-    const data = await res.json();
+      data.slots.forEach((slot) => {
+        const option = document.createElement("option");
+        option.value = slot;
+        option.textContent = slot;
+        timeSelect.appendChild(option);
+      });
 
-    timeSelect.innerHTML = '<option value="">Select a time</option>';
+    } catch (err) {
+      console.error(err);
+      timeSelect.innerHTML = '<option value="">Unable to load times</option>';
+      alert("Unable to load available times. Please try again.");
+    }
+  }
 
-    if (!data.slots || data.slots.length === 0) {
-      timeSelect.innerHTML =
-        '<option value="">No available times for this date</option>';
+  async function submitRequest() {
+    const appointmentDate = document.getElementById("appointmentDate")?.value;
+    const appointmentTime = document.getElementById("appointmentTime")?.value;
+
+    if (!appointmentDate || !appointmentTime) {
+      alert("Please select a date and time.");
       return;
     }
 
-    data.slots.forEach((slot) => {
-      const option = document.createElement("option");
-      option.value = slot;
-      option.textContent = slot;
-      timeSelect.appendChild(option);
-    });
+    const step4 = document.getElementById("step4");
+    const inputs = step4.querySelectorAll("input");
+    const [first, last, dob, phone, email] = inputs;
 
-  } catch (err) {
-    console.error(err);
-    timeSelect.innerHTML =
-      '<option value="">Unable to load times</option>';
-    alert("Unable to load available times. Please try again.");
-  }
-}
+    const noInsurance = document.getElementById("noInsurance")?.checked;
 
-async function submitRequest() {
-  const appointmentDate = document.getElementById("appointmentDate")?.value;
-  const appointmentTime = document.getElementById("appointmentTime")?.value;
+    const insurance = noInsurance ? { noInsurance: true } : {
+      noInsurance: false,
+      carrier: document.getElementById("insCarrier")?.value?.trim() || "",
+      policyHolderName: document.getElementById("insPolicyHolderName")?.value?.trim() || "",
+      policyHolderDob: document.getElementById("insPolicyHolderDob")?.value || "",
+      memberId: document.getElementById("insMemberId")?.value?.trim() || "",
+      employer: document.getElementById("insEmployer")?.value?.trim() || "",
+      groupId: document.getElementById("insGroupId")?.value?.trim() || "",
+      zip: document.getElementById("insZip")?.value?.trim() || ""
+    };
 
-  if (!appointmentDate || !appointmentTime) {
-    alert("Please select a date and time.");
-    return;
-  }
+    const payload = {
+      appointmentDate,
+      appointmentTime,
+      patient: {
+        firstName: first?.value?.trim(),
+        lastName: last?.value?.trim(),
+        dob: dob?.value || "",
+        phone: phone?.value?.trim() || "",
+        email: email?.value?.trim() || ""
+      },
+      insurance
+    };
 
-  // Pull patient fields (adjust selectors if your inputs differ)
-  const step4 = document.getElementById("step4");
-  const inputs = step4.querySelectorAll("input");
-  const [first, last, dob, phone, email] = inputs;
+    try {
+      const res = await fetch(`${BACKEND_BASE_URL}/book`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
 
-const noInsurance = document.getElementById("noInsurance")?.checked;
+      const data = await res.json();
 
-const insurance = noInsurance ? { noInsurance: true } : {
-  noInsurance: false,
-  carrier: document.getElementById("insCarrier")?.value?.trim() || "",
-  policyHolderName: document.getElementById("insPolicyHolderName")?.value?.trim() || "",
-  policyHolderDob: document.getElementById("insPolicyHolderDob")?.value || "",
-  memberId: document.getElementById("insMemberId")?.value?.trim() || "",
-  employer: document.getElementById("insEmployer")?.value?.trim() || "",
-  groupId: document.getElementById("insGroupId")?.value?.trim() || "",
-  zip: document.getElementById("insZip")?.value?.trim() || ""
-};
+      if (!res.ok || !data.ok) {
+        alert(data.error || "Booking failed. Please try again.");
+        return;
+      }
 
-  const payload = {
-  appointmentDate,
-  appointmentTime,
-  patient: {
-    firstName: first?.value?.trim(),
-    lastName: last?.value?.trim(),
-    dob: dob?.value || "",
-    phone: phone?.value?.trim() || "",
-    email: email?.value?.trim() || ""
-  },
-  insurance
-};
-
-
-  try {
-    const res = await fetch(`${BACKEND_BASE_URL}/book`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload)
-    });
-
-    const data = await res.json();
-
-    if (!res.ok || !data.ok) {
-      alert(data.error || "Booking failed. Please try again.");
-      return;
-    }
-
-    // ✅ “Notification” that costs $0: on-screen confirmation + optional prefilled email
-    alert(
-      `Appointment booked!\n\nConfirmation: ${data.confirmationId}\n` +
-      `${data.appointmentDate} at ${data.appointmentTime}\n\n` +
-      `A confirmation notice can be sent next.`
-    );
-
-    // Optional: open patient's email app with a prefilled confirmation (free, no provider)
-    if (payload.patient.email) {
-      const subject = encodeURIComponent("Your Brook Hollow Family Dentistry Appointment Confirmation");
-      const body = encodeURIComponent(
-        `Hi ${data.patientName},\n\n` +
-        `Your appointment is confirmed for ${data.appointmentDate} at ${data.appointmentTime}.\n` +
-        `Confirmation #: ${data.confirmationId}\n\n` +
-        `If you need to change or cancel, please call the office.\n\n` +
-        `— Brook Hollow Family Dentistry`
+      alert(
+        `Appointment booked!\n\nConfirmation: ${data.confirmationId}\n` +
+        `${data.appointmentDate} at ${data.appointmentTime}\n\n` +
+        `A confirmation notice can be sent next.`
       );
-      window.location.href = `mailto:${payload.patient.email}?subject=${subject}&body=${body}`;
+
+      if (payload.patient.email) {
+        const subject = encodeURIComponent("Your Brook Hollow Family Dentistry Appointment Confirmation");
+        const body = encodeURIComponent(
+          `Hi ${data.patientName},\n\n` +
+          `Your appointment is confirmed for ${data.appointmentDate} at ${data.appointmentTime}.\n` +
+          `Confirmation #: ${data.confirmationId}\n\n` +
+          `If you need to change or cancel, please call the office.\n\n` +
+          `— Brook Hollow Family Dentistry`
+        );
+        window.location.href = `mailto:${payload.patient.email}?subject=${subject}&body=${body}`;
+      }
+
+    } catch (err) {
+      console.error(err);
+      alert("Unable to book appointment right now. Please try again.");
     }
-
-  } catch (err) {
-    console.error(err);
-    alert("Unable to book appointment right now. Please try again.");
   }
-}
-
 </script>
 
 </body>
