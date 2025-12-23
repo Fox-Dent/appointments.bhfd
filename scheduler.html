@@ -333,9 +333,6 @@
       box.innerHTML =
         `<strong>${data.patientName}</strong><br>` +
         `Appointment: <strong>${data.appointmentDate}</strong> at <strong>${data.appointmentTime}</strong><br>` +
-        `Operatory: <strong>${data.opName || data.opNum}</strong><br>` +
-        `Provider: <strong>${data.provNum}</strong><br>` +
-        `Open Dental AptNum: <strong>${data.aptNum}</strong><br>` +
         `<div class="small" style="margin-top:8px;">${data.message || ""}</div>`;
 
       showStep("step7");
