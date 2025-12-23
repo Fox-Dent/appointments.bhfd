@@ -2,132 +2,127 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>FoxDent Scheduling</title>
+  <title>FoxDentScheduling</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f3efe8;
-      margin: 0;
-      padding: 0;
-      color: #1f2a24;
-    }
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #f3efe8;
+    margin: 0;
+    padding: 0;
+    color: #1f2a24;
+  }
 
-    .container {
-      max-width: 600px;
-      margin: 40px auto;
-      background: #ffffff;
-      padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0,0,0,.1);
-    }
+  .container {
+    max-width: 600px;
+    margin: 40px auto;
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,.1);
+  }
 
-    h2 {
-      margin-top: 0;
-      color: #6f8f7a;
-    }
+  h2 {
+    margin-top: 0;
+    color: #6f8f7a;
+  }
 
-    label {
-      display: block;
-      margin-top: 15px;
-      font-weight: bold;
-    }
+  label {
+    display: block;
+    margin-top: 15px;
+    font-weight: bold;
+  }
 
-    select, input {
-      width: 100%;
-      padding: 10px;
-      margin-top: 5px;
-      border-radius: 6px;
-      border: 1px solid #cfd6d1;
-      font-size: 15px;
-    }
+  select, input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 6px;
+    border: 1px solid #cfd6d1;
+    font-size: 15px;
+  }
 
-    select:focus, input:focus {
-      outline: none;
-      border-color: #6f8f7a;
-    }
+  select:focus, input:focus {
+    outline: none;
+    border-color: #6f8f7a;
+  }
 
-    button {
-      margin-top: 30px;
-      background: #6f8f7a;
-      color: #ffffff;
-      border: none;
-      border-radius: 6px;
-      padding: 12px;
-      cursor: pointer;
-      font-size: 16px;
-      font-weight: bold;
-    }
+  button {
+    margin-top: 30px;
+    background: #6f8f7a;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    padding: 12px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+  }
 
-    button:hover { background: #5f7f6a; }
+  button:hover {
+    background: #5f7f6a;
+  }
 
-    .button-row {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 25px;
-      gap: 10px;
-    }
+  .button-row {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 25px;
+    gap: 10px;
+  }
 
-    .button-row button { width: 48%; }
+  .button-row button {
+    width: 48%;
+  }
 
-    .back-btn {
-      background: #d9d4cc;
-      color: #1f2a24;
-    }
+  .back-btn {
+    background: #d9d4cc;
+    color: #1f2a24;
+  }
 
-    .back-btn:hover { background: #cfc9bf; }
+  .back-btn:hover {
+    background: #cfc9bf;
+  }
 
-    .hidden { display: none; }
+  .hidden { display: none; }
 
-    .note {
-      font-size: 13px;
-      color: #555;
-      margin-top: 8px;
-    }
+  .note {
+    font-size: 13px;
+    color: #555;
+    margin-top: 8px;
+  }
 
-    input[type="checkbox"] {
-      width: auto;
-      margin-right: 8px;
-    }
+  input[type="checkbox"] {
+    width: auto;
+    margin-right: 8px;
+  }
 
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 20px;
-    }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
 
-    .logo {
-      width: 60px;
-      height: auto;
-      display: block;
-    }
+  .logo {
+    max-width: 60px;
+    width: 60px;
+    height: auto;
+  }
 
-    .brand-text {
-      font-size: 13px;
-      font-weight: 600;
-      color: #1f2a24;
-      opacity: 0.85;
-      line-height: 1.2;
-    }
-
-    .brand-text small {
-      display: block;
-      opacity: 0.75;
-      font-weight: 600;
-      margin-top: 2px;
-    }
-  </style>
+  .brand-text {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1f2a24;
+    opacity: 0.85;
+  }
+</style>
 </head>
-<body>
 
+<body>
 <div class="container">
   <div class="brand">
-    <img src="FoxDentLogo.png" alt="FoxDent" class="logo" onerror="this.style.display='none'">
-    <div class="brand-text">
-      FoxDent Scheduling
-      <small>Powered by FoxDent</small>
-    </div>
+    <img src="FoxDentLogo.png" alt="FoxDent" class="logo">
+    <div class="brand-text">Powered by FoxDent</div>
   </div>
 
   <!-- STEP 1 -->
@@ -184,19 +179,19 @@
     <h2>Patient Information</h2>
 
     <label>First Name</label>
-    <input type="text" id="pFirst" />
+    <input type="text" />
 
     <label>Last Name</label>
-    <input type="text" id="pLast" />
+    <input type="text" />
 
     <label>Date of Birth</label>
-    <input type="date" id="pDob" />
+    <input type="date" />
 
     <label>Contact Phone Number</label>
-    <input type="tel" id="pPhone" />
+    <input type="tel" />
 
     <label>Contact Email</label>
-    <input type="email" id="pEmail" />
+    <input type="email" />
 
     <div class="button-row">
       <button class="back-btn" onclick="showStep('step3')">Back</button>
@@ -246,7 +241,7 @@
   <div id="step6" class="hidden">
     <h2>Select Appointment Date & Time</h2>
 
-    <p class="note">Appointments are 60 minutes and start on the hour.</p>
+    <p class="note">Available appointments shown below are based on real-time availability.</p>
 
     <label>Select a Date</label>
     <input type="date" id="appointmentDate" onchange="fetchAvailabilityForSelectedDate()" />
@@ -264,7 +259,6 @@
 </div>
 
 <script>
-  // ✅ Use NO trailing slash here
   const BACKEND_BASE_URL = "https://foxdentscheduling.calcifer6456.workers.dev";
 
   function showStep(stepId) {
@@ -273,67 +267,80 @@
   }
 
   function goToStep2() {
-    const status = document.getElementById("patientStatus").value;
+    const status = document.getElementById("patientStatus")?.value;
     if (!status) return alert("Please select New Patient or Existing Patient.");
     showStep("step2");
   }
 
   function goToStep3() {
-    const type = document.getElementById("appointmentType").value;
+    const type = document.getElementById("appointmentType")?.value;
     if (!type) return alert("Please select an appointment type.");
     showStep("step3");
   }
 
   function goToStep4() {
-    const forWhom = document.getElementById("forWhom").value;
+    const forWhom = document.getElementById("forWhom")?.value;
     if (!forWhom) return alert("Please choose whether this appointment is for yourself or someone else.");
     showStep("step4");
   }
 
   function goToStep5() {
-    const first = document.getElementById("pFirst").value.trim();
-    const last = document.getElementById("pLast").value.trim();
-    const dob = document.getElementById("pDob").value;
-    const phone = document.getElementById("pPhone").value.trim();
-    const email = document.getElementById("pEmail").value.trim();
-    if (!first || !last || !dob || !phone || !email) {
+    const step4 = document.getElementById("step4");
+    const inputs = step4.querySelectorAll("input");
+    const [first, last, dob, phone, email] = inputs;
+
+    if (!first.value.trim() || !last.value.trim() || !dob.value || !phone.value.trim() || !email.value.trim()) {
       return alert("Please complete all patient information fields.");
     }
     showStep("step5");
   }
 
-  function goToStep6() { showStep("step6"); }
+  function goToStep6() {
+    showStep("step6");
+  }
 
   function toggleInsurance() {
-    const noIns = document.getElementById("noInsurance").checked;
-    document.getElementById("insuranceFields").style.display = noIns ? "none" : "block";
+    const noIns = document.getElementById("noInsurance")?.checked;
+    const fields = document.getElementById("insuranceFields");
+    if (fields) fields.style.display = noIns ? "none" : "block";
+  }
+
+  function getApptType() {
+    return document.getElementById("appointmentType")?.value || "";
+  }
+
+  function getIsNewPatient() {
+    return (document.getElementById("patientStatus")?.value || "") === "new";
   }
 
   async function fetchAvailabilityForSelectedDate() {
-    const selectedDate = document.getElementById("appointmentDate").value;
+    const dateInput = document.getElementById("appointmentDate");
     const timeSelect = document.getElementById("appointmentTime");
+    if (!dateInput || !timeSelect) return;
 
-    const apptType = document.getElementById("appointmentType").value;
-    const isNewPatient = document.getElementById("patientStatus").value === "new";
-
+    const selectedDate = dateInput.value;
     timeSelect.innerHTML = '<option value="">Loading available times...</option>';
     if (!selectedDate) return;
 
+    const apptType = getApptType();
+    const isNewPatient = getIsNewPatient();
+
     try {
       const url =
-        `${BACKEND_BASE_URL}/availability` +
-        `?date=${encodeURIComponent(selectedDate)}` +
+        `${BACKEND_BASE_URL}/availability?date=${encodeURIComponent(selectedDate)}` +
         `&apptType=${encodeURIComponent(apptType)}` +
-        `&isNewPatient=${encodeURIComponent(isNewPatient)}`;
+        `&isNewPatient=${encodeURIComponent(String(isNewPatient))}`;
 
       const res = await fetch(url);
       const data = await res.json();
 
-      timeSelect.innerHTML = '<option value="">Select a time</option>';
-
       if (!res.ok || !data.ok) {
-        throw new Error(data.error || "Availability error");
+        console.error("Availability error:", data);
+        timeSelect.innerHTML = '<option value="">Unable to load times</option>';
+        return alert(data.error || "Unable to load available times. Please try again.");
       }
+
+      timeSelect.innerHTML = '<option value="">Select a time</option>';
 
       if (!data.slots || data.slots.length === 0) {
         timeSelect.innerHTML = '<option value="">No available times for this date</option>';
@@ -355,37 +362,37 @@
   }
 
   async function submitRequest() {
-    const appointmentDate = document.getElementById("appointmentDate").value;
-    const appointmentTime = document.getElementById("appointmentTime").value;
+    const appointmentDate = document.getElementById("appointmentDate")?.value;
+    const appointmentTime = document.getElementById("appointmentTime")?.value;
+    if (!appointmentDate || !appointmentTime) return alert("Please select a date and time.");
 
-    if (!appointmentDate || !appointmentTime) {
-      return alert("Please select a date and time.");
-    }
+    const step4 = document.getElementById("step4");
+    const inputs = step4.querySelectorAll("input");
+    const [first, last, dob, phone, email] = inputs;
 
-    const noInsurance = document.getElementById("noInsurance").checked;
-
+    const noInsurance = document.getElementById("noInsurance")?.checked;
     const insurance = noInsurance ? { noInsurance: true } : {
       noInsurance: false,
-      carrier: document.getElementById("insCarrier").value.trim(),
-      policyHolderName: document.getElementById("insPolicyHolderName").value.trim(),
-      policyHolderDob: document.getElementById("insPolicyHolderDob").value,
-      memberId: document.getElementById("insMemberId").value.trim(),
-      employer: document.getElementById("insEmployer").value.trim(),
-      groupId: document.getElementById("insGroupId").value.trim(),
-      zip: document.getElementById("insZip").value.trim()
+      carrier: document.getElementById("insCarrier")?.value?.trim() || "",
+      policyHolderName: document.getElementById("insPolicyHolderName")?.value?.trim() || "",
+      policyHolderDob: document.getElementById("insPolicyHolderDob")?.value || "",
+      memberId: document.getElementById("insMemberId")?.value?.trim() || "",
+      employer: document.getElementById("insEmployer")?.value?.trim() || "",
+      groupId: document.getElementById("insGroupId")?.value?.trim() || "",
+      zip: document.getElementById("insZip")?.value?.trim() || ""
     };
 
     const payload = {
       appointmentDate,
       appointmentTime,
-      apptType: document.getElementById("appointmentType").value,
-      isNewPatient: document.getElementById("patientStatus").value === "new",
+      apptType: getApptType(),
+      isNewPatient: getIsNewPatient(),
       patient: {
-        firstName: document.getElementById("pFirst").value.trim(),
-        lastName: document.getElementById("pLast").value.trim(),
-        dob: document.getElementById("pDob").value,
-        phone: document.getElementById("pPhone").value.trim(),
-        email: document.getElementById("pEmail").value.trim()
+        firstName: first?.value?.trim(),
+        lastName: last?.value?.trim(),
+        dob: dob?.value || "",
+        phone: phone?.value?.trim() || "",
+        email: email?.value?.trim() || ""
       },
       insurance
     };
@@ -398,7 +405,6 @@
       });
 
       const data = await res.json();
-
       if (!res.ok || !data.ok) return alert(data.error || "Booking failed. Please try again.");
 
       alert(
