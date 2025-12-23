@@ -12,7 +12,6 @@
     padding: 0;
     color: #1f2a24;
   }
-
   .container {
     max-width: 600px;
     margin: 40px auto;
@@ -21,18 +20,8 @@
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(0,0,0,.1);
   }
-
-  h2 {
-    margin-top: 0;
-    color: #6f8f7a;
-  }
-
-  label {
-    display: block;
-    margin-top: 15px;
-    font-weight: bold;
-  }
-
+  h2 { margin-top: 0; color: #6f8f7a; }
+  label { display: block; margin-top: 15px; font-weight: bold; }
   select, input {
     width: 100%;
     padding: 10px;
@@ -41,12 +30,7 @@
     border: 1px solid #cfd6d1;
     font-size: 15px;
   }
-
-  select:focus, input:focus {
-    outline: none;
-    border-color: #6f8f7a;
-  }
-
+  select:focus, input:focus { outline: none; border-color: #6f8f7a; }
   button {
     margin-top: 30px;
     background: #6f8f7a;
@@ -58,91 +42,63 @@
     font-size: 16px;
     font-weight: bold;
   }
-
-  button:hover {
-    background: #5f7f6a;
-  }
-
+  button:hover { background: #5f7f6a; }
   .button-row {
     display: flex;
     justify-content: space-between;
     margin-top: 25px;
     gap: 10px;
   }
-
-  .button-row button {
-    width: 48%;
-  }
-
+  .button-row button { width: 48%; }
   .back-btn {
     background: #d9d4cc;
     color: #1f2a24;
   }
-
-  .back-btn:hover {
-    background: #cfc9bf;
-  }
-
+  .back-btn:hover { background: #cfc9bf; }
   .hidden { display: none; }
-
-  .note {
-    font-size: 13px;
-    color: #555;
-    margin-top: 8px;
-  }
-
-  input[type="checkbox"] {
-    width: auto;
-    margin-right: 8px;
-  }
-
+  .note { font-size: 13px; color: #555; margin-top: 8px; }
+  input[type="checkbox"] { width: auto; margin-right: 8px; }
   .brand {
     display: flex;
     align-items: center;
     gap: 12px;
     margin-bottom: 20px;
   }
-
-  .logo {
-    max-width: 60px;
-    width: 60px;
-    height: auto;
+  .logo { max-width: 60px; width: 60px; height: auto; }
+  .brand-text { font-size: 14px; font-weight: 600; color: #1f2a24; opacity: 0.85; }
+  .success-box{
+    background:#f5fbf7;
+    border:1px solid #cfe7d6;
+    padding:16px;
+    border-radius:10px;
+    margin-top:12px;
   }
-
-  .brand-text {
-    font-size: 14px;
-    font-weight: 600;
-    color: #1f2a24;
-    opacity: 0.85;
-  }
+  .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
 </style>
 </head>
-
 <body>
+
 <div class="container">
   <div class="brand">
-    <img src="FoxDentLogo.png" alt="FoxDent" class="logo">
+    <img src="./FoxDentLogo.png" alt="FoxDent" class="logo">
     <div class="brand-text">Powered by FoxDent</div>
   </div>
 
   <!-- STEP 1 -->
   <div id="step1">
     <h2>Welcome to Brook Hollow Family Dentistry</h2>
-
     <label>Are you a new or existing patient?</label>
     <select id="patientStatus">
       <option value="">Select one</option>
       <option value="new">New Patient</option>
       <option value="existing">Existing Patient</option>
     </select>
-
     <button onclick="goToStep2()">Next</button>
   </div>
 
   <!-- STEP 2 -->
   <div id="step2" class="hidden">
     <h2>Appointment Type</h2>
-
     <label>What are we coming in for today?</label>
     <select id="appointmentType">
       <option value="">Select appointment type</option>
@@ -151,7 +107,6 @@
       <option value="adult_cleaning">Checkup and Cleaning – Adult</option>
       <option value="child_cleaning">Checkup and Cleaning – Child</option>
     </select>
-
     <div class="button-row">
       <button class="back-btn" onclick="showStep('step1')">Back</button>
       <button onclick="goToStep3()">Next</button>
@@ -161,13 +116,11 @@
   <!-- STEP 3 -->
   <div id="step3" class="hidden">
     <h2>Who is this appointment for?</h2>
-
     <select id="forWhom">
       <option value="">Select one</option>
       <option value="self">I’m making this appointment for myself</option>
       <option value="other">I’m making this appointment for someone else</option>
     </select>
-
     <div class="button-row">
       <button class="back-btn" onclick="showStep('step2')">Back</button>
       <button onclick="goToStep4()">Next</button>
@@ -177,22 +130,16 @@
   <!-- STEP 4 -->
   <div id="step4" class="hidden">
     <h2>Patient Information</h2>
-
     <label>First Name</label>
-    <input type="text" />
-
+    <input type="text" id="pFirst" />
     <label>Last Name</label>
-    <input type="text" />
-
+    <input type="text" id="pLast" />
     <label>Date of Birth</label>
-    <input type="date" />
-
+    <input type="date" id="pDob" />
     <label>Contact Phone Number</label>
-    <input type="tel" />
-
+    <input type="tel" id="pPhone" />
     <label>Contact Email</label>
-    <input type="email" />
-
+    <input type="email" id="pEmail" />
     <div class="button-row">
       <button class="back-btn" onclick="showStep('step3')">Back</button>
       <button onclick="goToStep5()">Next</button>
@@ -240,7 +187,6 @@
   <!-- STEP 6 -->
   <div id="step6" class="hidden">
     <h2>Select Appointment Date & Time</h2>
-
     <p class="note">Available appointments shown below are based on real-time availability.</p>
 
     <label>Select a Date</label>
@@ -256,6 +202,23 @@
       <button onclick="submitRequest()">Confirm Appointment</button>
     </div>
   </div>
+
+  <!-- STEP 7 -->
+  <div id="step7" class="hidden">
+    <h2>Appointment Confirmed ✅</h2>
+    <div class="success-box">
+      <div id="confirmSummary"></div>
+      <p class="note" style="margin-top:12px;">
+        If you need to change or cancel, please call the office.
+      </p>
+      <p class="note">
+        Confirmation ID: <span class="mono" id="confirmId"></span>
+      </p>
+    </div>
+
+    <button onclick="startOver()">Book Another Appointment</button>
+  </div>
+
 </div>
 
 <script>
@@ -285,19 +248,16 @@
   }
 
   function goToStep5() {
-    const step4 = document.getElementById("step4");
-    const inputs = step4.querySelectorAll("input");
-    const [first, last, dob, phone, email] = inputs;
-
-    if (!first.value.trim() || !last.value.trim() || !dob.value || !phone.value.trim() || !email.value.trim()) {
-      return alert("Please complete all patient information fields.");
-    }
+    const first = document.getElementById("pFirst").value.trim();
+    const last  = document.getElementById("pLast").value.trim();
+    const dob   = document.getElementById("pDob").value;
+    const phone = document.getElementById("pPhone").value.trim();
+    const email = document.getElementById("pEmail").value.trim();
+    if (!first || !last || !dob || !phone || !email) return alert("Please complete all patient information fields.");
     showStep("step5");
   }
 
-  function goToStep6() {
-    showStep("step6");
-  }
+  function goToStep6() { showStep("step6"); }
 
   function toggleInsurance() {
     const noIns = document.getElementById("noInsurance")?.checked;
@@ -305,55 +265,36 @@
     if (fields) fields.style.display = noIns ? "none" : "block";
   }
 
-  function getApptType() {
-    return document.getElementById("appointmentType")?.value || "";
-  }
-
-  function getIsNewPatient() {
-    return (document.getElementById("patientStatus")?.value || "") === "new";
-  }
-
   async function fetchAvailabilityForSelectedDate() {
-    const dateInput = document.getElementById("appointmentDate");
+    const selectedDate = document.getElementById("appointmentDate")?.value;
     const timeSelect = document.getElementById("appointmentTime");
-    if (!dateInput || !timeSelect) return;
+    if (!timeSelect) return;
 
-    const selectedDate = dateInput.value;
     timeSelect.innerHTML = '<option value="">Loading available times...</option>';
     if (!selectedDate) return;
 
-    const apptType = getApptType();
-    const isNewPatient = getIsNewPatient();
+    // IMPORTANT: pass apptType + isNewPatient so backend uses correct operatory
+    const apptType = document.getElementById("appointmentType")?.value || "";
+    const isNewPatient = (document.getElementById("patientStatus")?.value === "new");
 
     try {
-      const url =
-        `${BACKEND_BASE_URL}/availability?date=${encodeURIComponent(selectedDate)}` +
-        `&apptType=${encodeURIComponent(apptType)}` +
-        `&isNewPatient=${encodeURIComponent(String(isNewPatient))}`;
-
-      const res = await fetch(url);
+      const res = await fetch(
+        `${BACKEND_BASE_URL}/availability?date=${encodeURIComponent(selectedDate)}&apptType=${encodeURIComponent(apptType)}&isNewPatient=${isNewPatient}`
+      );
       const data = await res.json();
-
-      if (!res.ok || !data.ok) {
-        console.error("Availability error:", data);
-        timeSelect.innerHTML = '<option value="">Unable to load times</option>';
-        return alert(data.error || "Unable to load available times. Please try again.");
-      }
+      if (!res.ok || !data.ok) throw new Error(data.error || "Failed to load availability");
 
       timeSelect.innerHTML = '<option value="">Select a time</option>';
-
       if (!data.slots || data.slots.length === 0) {
         timeSelect.innerHTML = '<option value="">No available times for this date</option>';
         return;
       }
-
       data.slots.forEach((slot) => {
         const option = document.createElement("option");
         option.value = slot;
         option.textContent = slot;
         timeSelect.appendChild(option);
       });
-
     } catch (err) {
       console.error(err);
       timeSelect.innerHTML = '<option value="">Unable to load times</option>';
@@ -366,9 +307,8 @@
     const appointmentTime = document.getElementById("appointmentTime")?.value;
     if (!appointmentDate || !appointmentTime) return alert("Please select a date and time.");
 
-    const step4 = document.getElementById("step4");
-    const inputs = step4.querySelectorAll("input");
-    const [first, last, dob, phone, email] = inputs;
+    const apptType = document.getElementById("appointmentType")?.value || "";
+    const isNewPatient = (document.getElementById("patientStatus")?.value === "new");
 
     const noInsurance = document.getElementById("noInsurance")?.checked;
     const insurance = noInsurance ? { noInsurance: true } : {
@@ -385,14 +325,14 @@
     const payload = {
       appointmentDate,
       appointmentTime,
-      apptType: getApptType(),
-      isNewPatient: getIsNewPatient(),
+      apptType,
+      isNewPatient,
       patient: {
-        firstName: first?.value?.trim(),
-        lastName: last?.value?.trim(),
-        dob: dob?.value || "",
-        phone: phone?.value?.trim() || "",
-        email: email?.value?.trim() || ""
+        firstName: document.getElementById("pFirst").value.trim(),
+        lastName:  document.getElementById("pLast").value.trim(),
+        dob:       document.getElementById("pDob").value || "",
+        phone:     document.getElementById("pPhone").value.trim(),
+        email:     document.getElementById("pEmail").value.trim()
       },
       insurance
     };
@@ -403,20 +343,48 @@
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
       });
-
       const data = await res.json();
-      if (!res.ok || !data.ok) return alert(data.error || "Booking failed. Please try again.");
+      if (!res.ok || !data.ok) throw new Error(data.error || "Booking failed.");
 
-      alert(
-        `Appointment booked!\n\nConfirmation: ${data.confirmationId}\n` +
-        `${data.appointmentDate} at ${data.appointmentTime}`
-      );
+      // Show Step 7
+      document.getElementById("confirmId").textContent = data.confirmationId || "";
+      document.getElementById("confirmSummary").innerHTML = `
+        <p><strong>${data.patientName}</strong></p>
+        <p>${data.appointmentDate} at ${data.appointmentTime}</p>
+        <p class="note">Appointment Type: ${data.apptType || ""}</p>
+      `;
+      showStep("step7");
+
+      // Optional: open patient's email app with a prefilled confirmation (free)
+      if (payload.patient.email) {
+        const subject = encodeURIComponent("Your Brook Hollow Family Dentistry Appointment Confirmation");
+        const body = encodeURIComponent(
+          `Hi ${data.patientName},\n\n` +
+          `Your appointment is confirmed for ${data.appointmentDate} at ${data.appointmentTime}.\n` +
+          `Confirmation #: ${data.confirmationId}\n\n` +
+          `If you need to change or cancel, please call the office.\n\n` +
+          `— Brook Hollow Family Dentistry`
+        );
+        // comment this out if you DON'T want to pop email automatically:
+        // window.location.href = `mailto:${payload.patient.email}?subject=${subject}&body=${body}`;
+      }
 
     } catch (err) {
       console.error(err);
-      alert("Unable to book appointment right now. Please try again.");
+      alert(err.message || "Unable to book appointment right now. Please try again.");
     }
   }
+
+  function startOver() {
+    // reset minimal fields
+    document.querySelectorAll("input").forEach(i => { if (i.type !== "checkbox") i.value = ""; });
+    document.querySelectorAll("select").forEach(s => s.value = "");
+    document.getElementById("noInsurance").checked = false;
+    toggleInsurance();
+    document.getElementById("appointmentTime").innerHTML = '<option value="">Select a time</option>';
+    showStep("step1");
+  }
 </script>
+
 </body>
 </html>
