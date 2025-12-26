@@ -4,37 +4,31 @@
   <meta charset="UTF-8" />
   <title>Book Online at Brook Hollow Family Dentistry</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-<style>
-  body { font-family: Arial, sans-serif; background: #f3efe8; margin: 0; padding: 0; color: #1f2a24; }
-  .container { max-width: 600px; margin: 40px auto; background: #ffffff; padding: 30px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,.1); }
-  h2 { margin-top: 0; color: #6f8f7a; }
-  label { display: block; margin-top: 15px; font-weight: bold; }
-  select, input { width: 100%; padding: 10px; margin-top: 5px; border-radius: 6px; border: 1px solid #cfd6d1; font-size: 15px; }
-  select:focus, input:focus { outline: none; border-color: #6f8f7a; }
-  button { margin-top: 30px; background: #6f8f7a; color: #ffffff; border: none; border-radius: 6px; padding: 12px; cursor: pointer; font-size: 16px; font-weight: bold; }
-  button:hover { background: #5f7f6a; }
-
-  .button-row { display: flex; justify-content: space-between; margin-top: 25px; gap: 10px; }
-  .button-row button { width: 48%; }
-  .back-btn { background: #d9d4cc; color: #1f2a24; }
-  .back-btn:hover { background: #cfc9bf; }
-
-  .hidden { display: none; }
-  .note { font-size: 13px; color: #555; margin-top: 8px; }
-  input[type="checkbox"] { width: auto; margin-right: 8px; }
-
-  .brand { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
-  .logo { max-width: 60px; width: 60px; height: auto; }
-  .brand-text { font-size: 14px; font-weight: 600; color: #1f2a24; opacity: 0.85; }
-
-  .success-box { background: #f1f7f3; border: 1px solid #cfe3d6; padding: 16px; border-radius: 10px; margin-top: 10px; }
-  .small { font-size: 13px; color: #3b463f; }
-</style>
+  <style>
+    body { font-family: Arial, sans-serif; background:#f3efe8; margin:0; padding:0; color:#1f2a24; }
+    .container { max-width:600px; margin:40px auto; background:#fff; padding:30px; border-radius:10px; box-shadow:0 4px 12px rgba(0,0,0,.1); }
+    h2 { margin-top:0; color:#6f8f7a; }
+    label { display:block; margin-top:15px; font-weight:bold; }
+    select, input { width:100%; padding:10px; margin-top:5px; border-radius:6px; border:1px solid #cfd6d1; font-size:15px; }
+    select:focus, input:focus { outline:none; border-color:#6f8f7a; }
+    button { margin-top:30px; background:#6f8f7a; color:#fff; border:none; border-radius:6px; padding:12px; cursor:pointer; font-size:16px; font-weight:bold; }
+    button:hover { background:#5f7f6a; }
+    .button-row { display:flex; justify-content:space-between; margin-top:25px; gap:10px; }
+    .button-row button { width:48%; }
+    .back-btn { background:#d9d4cc; color:#1f2a24; }
+    .back-btn:hover { background:#cfc9bf; }
+    .hidden { display:none; }
+    .note { font-size:13px; color:#555; margin-top:8px; }
+    input[type="checkbox"] { width:auto; margin-right:8px; }
+    .brand { display:flex; align-items:center; gap:12px; margin-bottom:20px; }
+    .logo { max-width:60px; width:60px; height:auto; }
+    .brand-text { font-size:14px; font-weight:600; color:#1f2a24; opacity:0.85; }
+    .confirm-box { background:#f7f3ed; border:1px solid #e3ddd3; padding:14px; border-radius:10px; margin-top:15px; }
+    .small { font-size:13px; color:#444; }
+  </style>
 </head>
-
 <body>
 <div class="container">
-
   <div class="brand">
     <img src="./FoxDentLogo.png" alt="FoxDent" class="logo">
     <div class="brand-text">Powered by FoxDent</div>
@@ -43,21 +37,18 @@
   <!-- STEP 1 -->
   <div id="step1">
     <h2>Welcome to Brook Hollow Family Dentistry</h2>
-
     <label>Are you a new or existing patient?</label>
     <select id="patientStatus">
       <option value="">Select one</option>
       <option value="new">New Patient</option>
       <option value="existing">Existing Patient</option>
     </select>
-
     <button onclick="goToStep2()">Next</button>
   </div>
 
   <!-- STEP 2 -->
   <div id="step2" class="hidden">
     <h2>Appointment Type</h2>
-
     <label>What are we coming in for today?</label>
     <select id="appointmentType">
       <option value="">Select appointment type</option>
@@ -66,7 +57,6 @@
       <option value="adult_cleaning">Checkup and Cleaning – Adult</option>
       <option value="child_cleaning">Checkup and Cleaning – Child</option>
     </select>
-
     <div class="button-row">
       <button class="back-btn" onclick="showStep('step1')">Back</button>
       <button onclick="goToStep3()">Next</button>
@@ -76,13 +66,11 @@
   <!-- STEP 3 -->
   <div id="step3" class="hidden">
     <h2>Who is this appointment for?</h2>
-
     <select id="forWhom">
       <option value="">Select one</option>
       <option value="self">I’m making this appointment for myself</option>
       <option value="other">I’m making this appointment for someone else</option>
     </select>
-
     <div class="button-row">
       <button class="back-btn" onclick="showStep('step2')">Back</button>
       <button onclick="goToStep4()">Next</button>
@@ -94,19 +82,19 @@
     <h2>Patient Information</h2>
 
     <label>First Name</label>
-    <input type="text" id="firstName" />
+    <input type="text" id="firstName"/>
 
     <label>Last Name</label>
-    <input type="text" id="lastName" />
+    <input type="text" id="lastName"/>
 
     <label>Date of Birth</label>
-    <input type="date" id="dob" />
+    <input type="date" id="dob"/>
 
     <label>Contact Phone Number</label>
-    <input type="tel" id="phone" />
+    <input type="tel" id="phone"/>
 
     <label>Contact Email</label>
-    <input type="email" id="email" />
+    <input type="email" id="email"/>
 
     <div class="button-row">
       <button class="back-btn" onclick="showStep('step3')">Back</button>
@@ -155,7 +143,6 @@
   <!-- STEP 6 -->
   <div id="step6" class="hidden">
     <h2>Select Appointment Date & Time</h2>
-
     <p class="note">Available appointments shown below are based on real-time availability.</p>
 
     <label>Select a Date</label>
@@ -170,33 +157,24 @@
       <button class="back-btn" onclick="showStep('step5')">Back</button>
       <button onclick="submitRequest()">Confirm Appointment</button>
     </div>
-
-    <p class="note" id="bookStatus" style="display:none;"></p>
   </div>
 
   <!-- STEP 7 -->
   <div id="step7" class="hidden">
-    <h2>Appointment Confirmed ✅</h2>
-
-    <div class="success-box">
-      <div><strong id="confPatient"></strong></div>
-      <div id="confDateTime"></div>
-      <div class="small" style="margin-top:8px;">
-        Confirmation #: <strong id="confId"></strong><br/>
-      </div>
+    <h2>Appointment Confirmed</h2>
+    <div class="confirm-box">
+      <div id="confirmSummary"></div>
     </div>
-
-    <p class="note">
-      If you need to change or cancel your appointment, please call the office at 210-494-7681.
+    <p class="small" style="margin-top:12px;">
+      If you need to change or cancel, please call the office.
     </p>
-
     <button onclick="window.location.reload()">Book Another Appointment</button>
   </div>
 
 </div>
 
 <script>
-  // IMPORTANT: no trailing slash needed
+  // IMPORTANT: no trailing slash
   const BACKEND_BASE_URL = "https://foxdentscheduling.calcifer6456.workers.dev";
 
   function showStep(stepId) {
@@ -235,9 +213,7 @@
     showStep("step5");
   }
 
-  function goToStep6() {
-    showStep("step6");
-  }
+  function goToStep6() { showStep("step6"); }
 
   function toggleInsurance() {
     const noIns = document.getElementById("noInsurance").checked;
@@ -245,44 +221,41 @@
   }
 
   async function fetchAvailabilityForSelectedDate() {
-    const selectedDate = document.getElementById("appointmentDate").value;
+    const date = document.getElementById("appointmentDate").value;
     const timeSelect = document.getElementById("appointmentTime");
     timeSelect.innerHTML = '<option value="">Loading available times...</option>';
-
-    if (!selectedDate) return;
+    if (!date) return;
 
     const apptType = document.getElementById("appointmentType").value;
-    const patientStatus = document.getElementById("patientStatus").value;
-    const isNewPatient = (patientStatus === "new");
+    const isNewPatient = document.getElementById("patientStatus").value === "new";
 
     try {
       const res = await fetch(
-        `${BACKEND_BASE_URL}/availability?date=${encodeURIComponent(selectedDate)}&apptType=${encodeURIComponent(apptType)}&isNewPatient=${isNewPatient}`
+        `${BACKEND_BASE_URL}/availability?date=${encodeURIComponent(date)}&apptType=${encodeURIComponent(apptType)}&isNewPatient=${isNewPatient}`
       );
 
-      const raw = await res.text();
-      let data = null;
-      try { data = JSON.parse(raw); } catch {}
+      // Read as text first (avoids JSON parse throwing and falling into "network error" style behavior)
+      const text = await res.text();
+      let data;
+      try { data = JSON.parse(text); } catch { data = { ok:false, error:text }; }
 
-      if (!res.ok || !data?.ok) {
-        console.error("Availability error:", raw);
+      if (!res.ok || !data.ok) {
+        console.error("availability error:", data);
         timeSelect.innerHTML = '<option value="">Unable to load times</option>';
-        alert(data?.error || "Unable to load available times. Please try again.");
-        return;
+        return alert(data.error || "Unable to load available times.");
       }
 
       timeSelect.innerHTML = '<option value="">Select a time</option>';
-
       if (!data.slots || data.slots.length === 0) {
         timeSelect.innerHTML = '<option value="">No available times for this date</option>';
         return;
       }
 
       data.slots.forEach((slot) => {
-        const option = document.createElement("option");
-        option.value = slot;
-        option.textContent = slot;
-        timeSelect.appendChild(option);
+        const opt = document.createElement("option");
+        opt.value = slot;
+        opt.textContent = slot;
+        timeSelect.appendChild(opt);
       });
 
     } catch (err) {
@@ -293,39 +266,34 @@
   }
 
   async function submitRequest() {
-    const bookStatus = document.getElementById("bookStatus");
-    bookStatus.style.display = "block";
-    bookStatus.textContent = "Booking your appointment…";
-
     const appointmentDate = document.getElementById("appointmentDate").value;
     const appointmentTime = document.getElementById("appointmentTime").value;
+    if (!appointmentDate || !appointmentTime) return alert("Please select a date and time.");
 
-    if (!appointmentDate || !appointmentTime) {
-      bookStatus.style.display = "none";
-      return alert("Please select a date and time.");
-    }
+    const patientStatus = document.getElementById("patientStatus").value;
+    const appointmentType = document.getElementById("appointmentType").value;
 
     const payload = {
       appointmentDate,
       appointmentTime,
-      patientStatus: document.getElementById("patientStatus").value,
-      appointmentType: document.getElementById("appointmentType").value,
+      patientStatus,
+      appointmentType,
       patient: {
         firstName: document.getElementById("firstName").value.trim(),
         lastName: document.getElementById("lastName").value.trim(),
-        dob: document.getElementById("dob").value || "",
-        phone: document.getElementById("phone").value.trim() || "",
-        email: document.getElementById("email").value.trim() || ""
+        dob: document.getElementById("dob").value,
+        phone: document.getElementById("phone").value.trim(),
+        email: document.getElementById("email").value.trim(),
       },
-      insurance: document.getElementById("noInsurance").checked ? { noInsurance: true } : {
-        noInsurance: false,
+      insurance: document.getElementById("noInsurance").checked ? { noInsurance:true } : {
+        noInsurance:false,
         carrier: document.getElementById("insCarrier").value.trim(),
         policyHolderName: document.getElementById("insPolicyHolderName").value.trim(),
         policyHolderDob: document.getElementById("insPolicyHolderDob").value,
         memberId: document.getElementById("insMemberId").value.trim(),
         employer: document.getElementById("insEmployer").value.trim(),
         groupId: document.getElementById("insGroupId").value.trim(),
-        zip: document.getElementById("insZip").value.trim()
+        zip: document.getElementById("insZip").value.trim(),
       }
     };
 
@@ -336,28 +304,26 @@
         body: JSON.stringify(payload)
       });
 
-      const raw = await res.text();
-      let data = null;
-      try { data = JSON.parse(raw); } catch {}
+      const text = await res.text();
+      let data;
+      try { data = JSON.parse(text); } catch { data = { ok:false, error:text }; }
 
-      if (!res.ok || !data?.ok) {
-        console.error("Booking failed:", raw);
-        bookStatus.textContent = "Booking failed.";
-        alert(data?.error || `Booking failed. Server said: ${raw || res.status}`);
-        return;
+      if (!res.ok || !data.ok) {
+        console.error("book error:", data);
+        return alert(data.error || "Booking failed. Please try again.");
       }
 
-      // ✅ Success: go to Step 7
-      document.getElementById("confPatient").textContent = data.patientName || "";
-      document.getElementById("confDateTime").textContent = `${data.appointmentDate} at ${data.appointmentTime}`;
-      document.getElementById("confId").textContent = data.confirmationId || "";
-      document.getElementById("confOp").textContent = `${data.opNum ?? ""}${data.opName ? " - " + data.opName : ""}`;
+      // ✅ Step 7 confirmation page
+      document.getElementById("confirmSummary").innerHTML =
+        `<b>Confirmation:</b> ${data.confirmationId}<br>
+         <b>Patient:</b> ${data.patientName}<br>
+         <b>Date/Time:</b> ${data.appointmentDate} at ${data.appointmentTime}<br>
+         <b>Operatory:</b> ${data.opName || data.opNum || ""}`;
 
       showStep("step7");
 
     } catch (err) {
       console.error(err);
-      bookStatus.textContent = "Booking failed.";
       alert("Unable to book appointment right now. Please try again.");
     }
   }
