@@ -2,43 +2,112 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Book Online at BHFD</title>
+  <title>Book Online for Brook Hollow Family Dentistry</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
-    body { font-family: Arial, sans-serif; background:#f3efe8; margin:0; padding:0; color:#1f2a24; }
-    .container { max-width:600px; margin:40px auto; background:#fff; padding:30px; border-radius:10px; box-shadow:0 4px 12px rgba(0,0,0,.1); }
-    h2 { margin-top:0; color:#6f8f7a; }
-    label { display:block; margin-top:15px; font-weight:bold; }
-    select,input { width:100%; padding:10px; margin-top:5px; border-radius:6px; border:1px solid #cfd6d1; font-size:15px; }
-    select:focus,input:focus { outline:none; border-color:#6f8f7a; }
-    button { margin-top:30px; background:#6f8f7a; color:#fff; border:none; border-radius:6px; padding:12px; cursor:pointer; font-size:16px; font-weight:bold; }
-    button:hover { background:#5f7f6a; }
-    .button-row { display:flex; justify-content:space-between; margin-top:25px; gap:10px; }
-    .button-row button { width:48%; }
-    .back-btn { background:#d9d4cc; color:#1f2a24; }
-    .back-btn:hover { background:#cfc9bf; }
-    .hidden { display:none; }
-    .note { font-size:13px; color:#555; margin-top:8px; }
-    input[type="checkbox"] { width:auto; margin-right:8px; }
-    .brand { display:flex; align-items:center; gap:12px; margin-bottom:20px; }
-    .logo { max-width:60px; width:60px; height:auto; }
-    .brand-text { font-size:14px; font-weight:600; color:#1f2a24; opacity:.85; }
-
-    .confirm-box {
-      border: 1px solid #cfd6d1;
+    body {
+      font-family: Arial, sans-serif;
+      background: #f3efe8;
+      margin: 0;
+      padding: 0;
+      color: #1f2a24;
+    }
+    .container {
+      max-width: 600px;
+      margin: 40px auto;
+      background: #ffffff;
+      padding: 30px;
       border-radius: 10px;
-      padding: 14px;
-      background: #fbfaf7;
-      margin-top: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,.1);
+    }
+    h2 {
+      margin-top: 0;
+      color: #6f8f7a;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    select, input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 6px;
+      border: 1px solid #cfd6d1;
+      font-size: 15px;
+    }
+    select:focus, input:focus {
+      outline: none;
+      border-color: #6f8f7a;
+    }
+    button {
+      margin-top: 30px;
+      background: #6f8f7a;
+      color: #ffffff;
+      border: none;
+      border-radius: 6px;
+      padding: 12px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: bold;
+    }
+    button:hover { background: #5f7f6a; }
+    .button-row {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 25px;
+      gap: 10px;
+    }
+    .button-row button { width: 48%; }
+    .back-btn {
+      background: #d9d4cc;
+      color: #1f2a24;
+    }
+    .back-btn:hover { background: #cfc9bf; }
+    .hidden { display: none; }
+    .note { font-size: 13px; color: #555; margin-top: 8px; }
+    input[type="checkbox"] { width: auto; margin-right: 8px; }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .logo {
+      max-width: 60px;
+      width: 60px;
+      height: auto;
+    }
+    .brand-text {
+      font-size: 14px;
+      font-weight: 600;
+      color: #1f2a24;
+      opacity: 0.85;
+    }
+    .success-box {
+      background: #f1f8f3;
+      border: 1px solid #cfe6d6;
+      padding: 16px;
+      border-radius: 10px;
+      margin-top: 16px;
       line-height: 1.5;
     }
-
-    .small { font-size: 13px; color:#555; }
+    .success-id {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      padding: 6px 10px;
+      border-radius: 8px;
+      background: #ffffff;
+      border: 1px solid #cfe6d6;
+      display: inline-block;
+      margin-top: 6px;
+    }
   </style>
 </head>
-
 <body>
+
 <div class="container">
+
   <div class="brand">
     <img src="./FoxDentLogo.png" alt="FoxDent" class="logo">
     <div class="brand-text">Powered by FoxDent</div>
@@ -98,19 +167,19 @@
     <h2>Patient Information</h2>
 
     <label>First Name</label>
-    <input type="text" id="pFirst" />
+    <input type="text" id="firstName"/>
 
     <label>Last Name</label>
-    <input type="text" id="pLast" />
+    <input type="text" id="lastName"/>
 
     <label>Date of Birth</label>
-    <input type="date" id="pDob" />
+    <input type="date" id="dob"/>
 
     <label>Contact Phone Number</label>
-    <input type="tel" id="pPhone" />
+    <input type="tel" id="phone"/>
 
     <label>Contact Email</label>
-    <input type="email" id="pEmail" />
+    <input type="email" id="email"/>
 
     <div class="button-row">
       <button class="back-btn" onclick="showStep('step3')">Back</button>
@@ -160,7 +229,9 @@
   <div id="step6" class="hidden">
     <h2>Select Appointment Date & Time</h2>
 
-    <p class="note">Available appointments shown below are based on real-time availability.</p>
+    <p class="note">
+      Available appointments shown below are based on real-time availability.
+    </p>
 
     <label>Select a Date</label>
     <input type="date" id="appointmentDate" onchange="fetchAvailabilityForSelectedDate()" />
@@ -178,29 +249,28 @@
 
   <!-- STEP 7 -->
   <div id="step7" class="hidden">
-    <h2>Appointment Confirmed</h2>
-    <div class="confirm-box" id="confirmBox"></div>
-    <p class="small" style="margin-top:10px;">
-      If you need to reschedule, please call the office.
-    </p>
-    <button onclick="resetAll()">Book Another Appointment</button>
+    <h2>Appointment Confirmed ✅</h2>
+    <div class="success-box">
+      <div><strong>Name:</strong> <span id="c_name"></span></div>
+      <div><strong>Date/Time:</strong> <span id="c_dt"></span></div>
+      <div class="success-id" id="c_id"></div>
+      <div class="note" style="margin-top:12px;">
+        If you need to reschedule or cancel, please call Brook Hollow Family Dentistry at 210-494-7681.
+      </div>
+    </div>
+
+    <button onclick="restart()">Book Another Appointment</button>
   </div>
+
 </div>
 
 <script>
+  // ✅ IMPORTANT: no trailing slash to avoid //availability
   const BACKEND_BASE_URL = "https://foxdentscheduling.calcifer6456.workers.dev";
 
   function showStep(stepId) {
     document.querySelectorAll('[id^="step"]').forEach((div) => div.classList.add("hidden"));
     document.getElementById(stepId).classList.remove("hidden");
-  }
-
-  function getIsNewPatient() {
-    return document.getElementById("patientStatus")?.value === "new";
-  }
-
-  function getApptType() {
-    return (document.getElementById("appointmentType")?.value || "").trim();
   }
 
   function goToStep2() {
@@ -210,7 +280,7 @@
   }
 
   function goToStep3() {
-    const type = getApptType();
+    const type = document.getElementById("appointmentType")?.value;
     if (!type) return alert("Please select an appointment type.");
     showStep("step3");
   }
@@ -222,11 +292,12 @@
   }
 
   function goToStep5() {
-    const first = document.getElementById("pFirst");
-    const last = document.getElementById("pLast");
-    const dob = document.getElementById("pDob");
-    const phone = document.getElementById("pPhone");
-    const email = document.getElementById("pEmail");
+    const first = document.getElementById("firstName");
+    const last  = document.getElementById("lastName");
+    const dob   = document.getElementById("dob");
+    const phone = document.getElementById("phone");
+    const email = document.getElementById("email");
+
     if (!first.value.trim() || !last.value.trim() || !dob.value || !phone.value.trim() || !email.value.trim()) {
       return alert("Please complete all patient information fields.");
     }
@@ -243,30 +314,38 @@
     if (fields) fields.style.display = noIns ? "none" : "block";
   }
 
+  function getApptContext() {
+    const apptType = document.getElementById("appointmentType")?.value || "";
+    const isNewPatient = (document.getElementById("patientStatus")?.value || "") === "new";
+    return { apptType, isNewPatient };
+  }
+
   async function fetchAvailabilityForSelectedDate() {
     const dateInput = document.getElementById("appointmentDate");
     const timeSelect = document.getElementById("appointmentTime");
-    const selectedDate = dateInput.value;
+    if (!dateInput || !timeSelect) return;
 
+    const selectedDate = dateInput.value;
     timeSelect.innerHTML = '<option value="">Loading available times...</option>';
     if (!selectedDate) return;
 
-    const apptType = getApptType();
-    const isNewPatient = getIsNewPatient();
+    const { apptType, isNewPatient } = getApptContext();
+    if (!apptType) {
+      timeSelect.innerHTML = '<option value="">Select appointment type first</option>';
+      return;
+    }
 
     try {
-      const res = await fetch(
-        `${BACKEND_BASE_URL}/availability?date=${encodeURIComponent(selectedDate)}&apptType=${encodeURIComponent(apptType)}&isNewPatient=${encodeURIComponent(String(isNewPatient))}`
-      );
+      const url =
+        `${BACKEND_BASE_URL}/availability?date=${encodeURIComponent(selectedDate)}` +
+        `&apptType=${encodeURIComponent(apptType)}&isNewPatient=${isNewPatient}`;
+
+      const res = await fetch(url);
       const data = await res.json();
 
-      timeSelect.innerHTML = '<option value="">Select a time</option>';
+      if (!res.ok || !data.ok) throw new Error(data.error || "Failed to fetch availability");
 
-      if (!res.ok || !data.ok) {
-        console.error(data);
-        timeSelect.innerHTML = '<option value="">Unable to load times</option>';
-        return alert(data.error || "Unable to load available times.");
-      }
+      timeSelect.innerHTML = '<option value="">Select a time</option>';
 
       if (!data.slots || data.slots.length === 0) {
         timeSelect.innerHTML = '<option value="">No available times for this date</option>';
@@ -279,6 +358,7 @@
         option.textContent = slot;
         timeSelect.appendChild(option);
       });
+
     } catch (err) {
       console.error(err);
       timeSelect.innerHTML = '<option value="">Unable to load times</option>';
@@ -289,32 +369,26 @@
   async function submitRequest() {
     const appointmentDate = document.getElementById("appointmentDate")?.value;
     const appointmentTime = document.getElementById("appointmentTime")?.value;
+
     if (!appointmentDate || !appointmentTime) return alert("Please select a date and time.");
 
-    const apptType = getApptType();
-    const isNewPatient = getIsNewPatient();
+    const patientStatus = document.getElementById("patientStatus")?.value || "";
+    const appointmentType = document.getElementById("appointmentType")?.value || "";
 
-    const patient = {
-      firstName: document.getElementById("pFirst")?.value?.trim() || "",
-      lastName: document.getElementById("pLast")?.value?.trim() || "",
-      dob: document.getElementById("pDob")?.value || "",
-      phone: document.getElementById("pPhone")?.value?.trim() || "",
-      email: document.getElementById("pEmail")?.value?.trim() || ""
+    const payload = {
+      appointmentDate,
+      appointmentTime,
+      patientStatus,        // "new" or "existing"
+      appointmentType,      // consult/emergency/adult_cleaning/child_cleaning
+      patient: {
+        firstName: document.getElementById("firstName")?.value?.trim() || "",
+        lastName:  document.getElementById("lastName")?.value?.trim() || "",
+        dob:       document.getElementById("dob")?.value || "",
+        phone:     document.getElementById("phone")?.value?.trim() || "",
+        email:     document.getElementById("email")?.value?.trim() || ""
+      },
+      insurance: buildInsurancePayload()
     };
-
-    const noInsurance = document.getElementById("noInsurance")?.checked;
-    const insurance = noInsurance ? { noInsurance: true } : {
-      noInsurance: false,
-      carrier: document.getElementById("insCarrier")?.value?.trim() || "",
-      policyHolderName: document.getElementById("insPolicyHolderName")?.value?.trim() || "",
-      policyHolderDob: document.getElementById("insPolicyHolderDob")?.value || "",
-      memberId: document.getElementById("insMemberId")?.value?.trim() || "",
-      employer: document.getElementById("insEmployer")?.value?.trim() || "",
-      groupId: document.getElementById("insGroupId")?.value?.trim() || "",
-      zip: document.getElementById("insZip")?.value?.trim() || ""
-    };
-
-    const payload = { appointmentDate, appointmentTime, apptType, isNewPatient, patient, insurance };
 
     try {
       const res = await fetch(`${BACKEND_BASE_URL}/book`, {
@@ -325,29 +399,47 @@
 
       const data = await res.json();
       if (!res.ok || !data.ok) {
-        console.error(data);
-        return alert(data.error || "Booking failed. Please try again.");
+        alert(data.error || "Booking failed. Please try again.");
+        return;
       }
 
-      const box = document.getElementById("confirmBox");
-      box.innerHTML =
-        `<strong>${data.patientName}</strong><br>` +
-        `Appointment: <strong>${data.appointmentDate}</strong> at <strong>${data.appointmentTime}</strong><br>` +
-        `<div class="small" style="margin-top:8px;">${data.message || ""}</div>`;
+      // Step 7 confirmation
+      document.getElementById("c_name").textContent = data.patientName || "";
+      document.getElementById("c_dt").textContent = `${data.appointmentDate} at ${data.appointmentTime}`;
+      document.getElementById("c_id").textContent = data.confirmationId || "";
+      document.getElementById("c_op").textContent = data.opName ? `${data.opName} (Op ${data.opNum})` : `Op ${data.opNum || ""}`;
 
       showStep("step7");
+
     } catch (err) {
       console.error(err);
       alert("Unable to book appointment right now. Please try again.");
     }
   }
 
-  function resetAll() {
-    document.querySelectorAll("input").forEach(i => { if (i.type === "checkbox") i.checked = false; else i.value = ""; });
-    document.querySelectorAll("select").forEach(s => s.value = "");
-    toggleInsurance();
+  function buildInsurancePayload() {
+    const noInsurance = document.getElementById("noInsurance")?.checked;
+    if (noInsurance) return { noInsurance: true };
+
+    return {
+      noInsurance: false,
+      carrier: document.getElementById("insCarrier")?.value?.trim() || "",
+      policyHolderName: document.getElementById("insPolicyHolderName")?.value?.trim() || "",
+      policyHolderDob: document.getElementById("insPolicyHolderDob")?.value || "",
+      memberId: document.getElementById("insMemberId")?.value?.trim() || "",
+      employer: document.getElementById("insEmployer")?.value?.trim() || "",
+      groupId: document.getElementById("insGroupId")?.value?.trim() || "",
+      zip: document.getElementById("insZip")?.value?.trim() || ""
+    };
+  }
+
+  function restart() {
+    // clear step6 date/time
+    document.getElementById("appointmentDate").value = "";
+    document.getElementById("appointmentTime").innerHTML = '<option value="">Select a time</option>';
     showStep("step1");
   }
 </script>
+
 </body>
 </html>
