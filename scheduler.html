@@ -325,13 +325,16 @@
         const isNewPatient = document.getElementById("patientStatus").value === "new";
 
         try {
-          const res = await fetch(
-            `${BACKEND_BASE_URL}/availability?date=${encodeURIComponent(
-              date
-            )}&apptType=${encodeURIComponent(apptType)}&isNewPatient=${isNewPatient}`
-          );
+          const url = `${BACKEND_BASE_URL}/availability?date=${encodeURIComponent(
+            date
+          )}&apptType=${encodeURIComponent(apptType)}&isNewPatient=${isNewPatient}`;
 
-          // Read as text first (avoids JSON parse throwing and falling into "network error" style behavior)
+          const res = await fetch(url, {
+            method: "GET",
+            headers: { Accept: "application/json" },
+            cache: "no-store",
+          });
+
           const text = await res.text();
           let data;
           try {
@@ -341,9 +344,12 @@
           }
 
           if (!res.ok || !data.ok) {
-            console.error("availability error:", data);
+            console.error("availability error:", { status: res.status, data });
             timeSelect.innerHTML = '<option value="">Unable to load times</option>';
-            return alert(data.error || "Unable to load available times.");
+            return alert(
+              data.error ||
+                `Unable to load available times. (HTTP ${res.status})`
+            );
           }
 
           timeSelect.innerHTML = '<option value="">Select a time</option>';
@@ -361,7 +367,7 @@
             timeSelect.appendChild(opt);
           });
         } catch (err) {
-          console.error(err);
+          console.error("availability network error:", err);
           timeSelect.innerHTML = '<option value="">Unable to load times</option>';
           alert("Unable to load available times. Please try again.");
         }
@@ -407,8 +413,12 @@
         try {
           const res = await fetch(`${BACKEND_BASE_URL}/book`, {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+            },
             body: JSON.stringify(payload),
+            cache: "no-store",
           });
 
           const text = await res.text();
@@ -420,11 +430,10 @@
           }
 
           if (!res.ok || !data.ok) {
-            console.error("book error:", data);
+            console.error("book error:", { status: res.status, data });
             return alert(data.error || "Booking failed. Please try again.");
           }
 
-          // ✅ Step 7 confirmation page
           document.getElementById("confirmSummary").innerHTML = `
             <b>Confirmation:</b> ${data.confirmationId}<br>
             <b>Patient:</b> ${data.patientName}<br>
