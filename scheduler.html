@@ -125,11 +125,47 @@
         white-space: pre-wrap;
         word-break: break-word;
       }
+      .warning {
+        margin-bottom: 18px;
+        padding: 14px;
+        border-radius: 10px;
+        background: #fff8e6;
+        border: 1px solid #ffe2a8;
+        color: #5a4300;
+        display: none;
+      }
+      .warning b {
+        display: block;
+        margin-bottom: 6px;
+      }
+      .warning a {
+        display: inline-block;
+        margin-top: 10px;
+        background: #6f8f7a;
+        color: #fff;
+        padding: 10px 12px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: bold;
+      }
+      .warning a:hover {
+        background: #5f7f6a;
+      }
     </style>
   </head>
 
   <body>
     <div class="container">
+      <!-- ✅ Local-file / Outlook-preview warning -->
+      <div id="hostWarning" class="warning">
+        <b>This page was opened as a file/attachment.</b>
+        iPhone browsers block online scheduling requests from this mode (ex: Outlook preview / “edge://external-file”).
+        <br />
+        Please open the hosted booking link instead:
+        <br />
+        <a id="hostedLink" href="#" target="_blank" rel="noopener">Open the online booking page</a>
+      </div>
+
       <div class="brand">
         <img src="./FoxDentLogo.png" alt="FoxDent" class="logo" />
         <div class="brand-text">Powered by FoxDent</div>
@@ -277,6 +313,10 @@
       // IMPORTANT: no trailing slash
       const BACKEND_BASE_URL = "https://foxdentscheduling.calcifer6456.workers.dev";
 
+      // ✅ CHANGE THIS to your hosted frontend URL (GitHub Pages / Cloudflare Pages)
+      // Example: "https://calcifer6456.github.io/foxdent-scheduler/"
+      const HOSTED_FRONTEND_URL = "https://YOUR-HOSTED-FRONTEND-URL-HERE";
+
       function showStep(stepId) {
         document
           .querySelectorAll('[id^="step"]')
@@ -294,6 +334,22 @@
         el.style.display = "block";
         el.textContent = msg;
       }
+
+      function isBlockedContext() {
+        // Works for: file://, edge://external-file, about:, etc.
+        const proto = (location && location.protocol) ? location.protocol.toLowerCase() : "";
+        return proto !== "http:" && proto !== "https:";
+      }
+
+      // Show warning immediately if opened from attachment/local mode
+      (function initHostWarning() {
+        if (isBlockedContext()) {
+          const warning = document.getElementById("hostWarning");
+          const link = document.getElementById("hostedLink");
+          link.href = HOSTED_FRONTEND_URL;
+          warning.style.display = "block";
+        }
+      })();
 
       function goToStep2() {
         const status = document.getElementById("patientStatus").value;
@@ -340,56 +396,20 @@
           : "block";
       }
 
-      // ✅ JSONP helper (fallback when fetch is blocked on mobile)
-      function jsonpRequest(url, timeoutMs = 12000) {
-        return new Promise((resolve, reject) => {
-          const cbName = "__fdcb_" + Math.random().toString(36).slice(2);
-          const script = document.createElement("script");
-          let done = false;
-
-          const cleanup = () => {
-            if (script.parentNode) script.parentNode.removeChild(script);
-            try {
-              delete window[cbName];
-            } catch {
-              window[cbName] = undefined;
-            }
-          };
-
-          const timer = setTimeout(() => {
-            if (done) return;
-            done = true;
-            cleanup();
-            reject(new Error("JSONP timeout"));
-          }, timeoutMs);
-
-          window[cbName] = (data) => {
-            if (done) return;
-            done = true;
-            clearTimeout(timer);
-            cleanup();
-            resolve(data);
-          };
-
-          // Add callback param safely
-          const sep = url.includes("?") ? "&" : "?";
-          script.src = `${url}${sep}callback=${encodeURIComponent(cbName)}`;
-          script.async = true;
-
-          script.onerror = () => {
-            if (done) return;
-            done = true;
-            clearTimeout(timer);
-            cleanup();
-            reject(new Error("JSONP script load failed"));
-          };
-
-          document.head.appendChild(script);
-        });
-      }
-
       async function fetchAvailabilityForSelectedDate() {
         setAvailabilityError("");
+
+        // ✅ If opened from attachment/local mode, don’t even try
+        if (isBlockedContext()) {
+          const timeSelect = document.getElementById("appointmentTime");
+          timeSelect.innerHTML = '<option value="">Unable to load times</option>';
+          setAvailabilityError(
+            "This page was opened as a file/attachment (ex: Outlook / edge://external-file).\n" +
+            "iPhone browsers block online scheduling requests in this mode.\n\n" +
+            "Please open the hosted booking link at the top of this page."
+          );
+          return;
+        }
 
         const date = document.getElementById("appointmentDate").value;
         const timeSelect = document.getElementById("appointmentTime");
@@ -398,17 +418,16 @@
 
         const apptType = document.getElementById("appointmentType").value;
         const isNewPatient = document.getElementById("patientStatus").value === "new";
-        const ts = Date.now();
-
-        const baseUrl =
-          `${BACKEND_BASE_URL}/availability?date=${encodeURIComponent(date)}` +
-          `&apptType=${encodeURIComponent(apptType)}` +
-          `&isNewPatient=${isNewPatient}` +
-          `&_ts=${ts}`;
 
         try {
-          // Try normal fetch first
-          const res = await fetch(baseUrl, {
+          const ts = Date.now();
+          const url =
+            `${BACKEND_BASE_URL}/availability?date=${encodeURIComponent(date)}` +
+            `&apptType=${encodeURIComponent(apptType)}` +
+            `&isNewPatient=${isNewPatient}` +
+            `&_ts=${ts}`;
+
+          const res = await fetch(url, {
             method: "GET",
             mode: "cors",
             credentials: "omit",
@@ -434,58 +453,38 @@
             return;
           }
 
-          fillTimes(data, timeSelect);
-          return;
-        } catch (err) {
-          // ✅ If fetch is blocked ("Load failed"), use JSONP fallback
-          console.warn("fetch failed, trying JSONP fallback:", err);
+          timeSelect.innerHTML = '<option value="">Select a time</option>';
 
-          try {
-            const data = await jsonpRequest(baseUrl, 12000);
-            if (!data || !data.ok) {
-              timeSelect.innerHTML = '<option value="">Unable to load times</option>';
-              setAvailabilityError(
-                `Unable to load times.\nJSONP error:\n${String(
-                  (data && data.error) || "Unknown JSONP error"
-                ).slice(0, 300)}`
-              );
-              return;
-            }
-
-            fillTimes(data, timeSelect);
-            return;
-          } catch (jsonpErr) {
-            console.error("availability network error:", err, "jsonp:", jsonpErr);
-            timeSelect.innerHTML = '<option value="">Unable to load times</option>';
-            setAvailabilityError(
-              `Unable to load times.\nNetwork error:\n${String(err).slice(
-                0,
-                150
-              )}\n\nJSONP fallback failed:\n${String(jsonpErr).slice(0, 150)}`
-            );
+          if (!data.slots || data.slots.length === 0) {
+            timeSelect.innerHTML =
+              '<option value="">No available times for this date</option>';
             return;
           }
+
+          data.slots.forEach((slot) => {
+            const opt = document.createElement("option");
+            opt.value = slot;
+            opt.textContent = slot;
+            timeSelect.appendChild(opt);
+          });
+        } catch (err) {
+          console.error("availability network error:", err);
+          timeSelect.innerHTML = '<option value="">Unable to load times</option>';
+          setAvailabilityError(
+            `Unable to load times.\nNetwork error:\n${String(err).slice(0, 300)}`
+          );
         }
-      }
-
-      function fillTimes(data, timeSelect) {
-        timeSelect.innerHTML = '<option value="">Select a time</option>';
-
-        if (!data.slots || data.slots.length === 0) {
-          timeSelect.innerHTML =
-            '<option value="">No available times for this date</option>';
-          return;
-        }
-
-        data.slots.forEach((slot) => {
-          const opt = document.createElement("option");
-          opt.value = slot;
-          opt.textContent = slot;
-          timeSelect.appendChild(opt);
-        });
       }
 
       async function submitRequest() {
+        // ✅ If opened from attachment/local mode, block booking too
+        if (isBlockedContext()) {
+          return alert(
+            "This page was opened as a file/attachment (ex: Outlook preview).\n" +
+            "Please open the hosted booking link instead."
+          );
+        }
+
         const appointmentDate = document.getElementById("appointmentDate").value;
         const appointmentTime = document.getElementById("appointmentTime").value;
         if (!appointmentDate || !appointmentTime)
