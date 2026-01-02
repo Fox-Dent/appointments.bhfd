@@ -340,6 +340,54 @@
           : "block";
       }
 
+      // ✅ JSONP helper (fallback when fetch is blocked on mobile)
+      function jsonpRequest(url, timeoutMs = 12000) {
+        return new Promise((resolve, reject) => {
+          const cbName = "__fdcb_" + Math.random().toString(36).slice(2);
+          const script = document.createElement("script");
+          let done = false;
+
+          const cleanup = () => {
+            if (script.parentNode) script.parentNode.removeChild(script);
+            try {
+              delete window[cbName];
+            } catch {
+              window[cbName] = undefined;
+            }
+          };
+
+          const timer = setTimeout(() => {
+            if (done) return;
+            done = true;
+            cleanup();
+            reject(new Error("JSONP timeout"));
+          }, timeoutMs);
+
+          window[cbName] = (data) => {
+            if (done) return;
+            done = true;
+            clearTimeout(timer);
+            cleanup();
+            resolve(data);
+          };
+
+          // Add callback param safely
+          const sep = url.includes("?") ? "&" : "?";
+          script.src = `${url}${sep}callback=${encodeURIComponent(cbName)}`;
+          script.async = true;
+
+          script.onerror = () => {
+            if (done) return;
+            done = true;
+            clearTimeout(timer);
+            cleanup();
+            reject(new Error("JSONP script load failed"));
+          };
+
+          document.head.appendChild(script);
+        });
+      }
+
       async function fetchAvailabilityForSelectedDate() {
         setAvailabilityError("");
 
@@ -350,17 +398,17 @@
 
         const apptType = document.getElementById("appointmentType").value;
         const isNewPatient = document.getElementById("patientStatus").value === "new";
+        const ts = Date.now();
+
+        const baseUrl =
+          `${BACKEND_BASE_URL}/availability?date=${encodeURIComponent(date)}` +
+          `&apptType=${encodeURIComponent(apptType)}` +
+          `&isNewPatient=${isNewPatient}` +
+          `&_ts=${ts}`;
 
         try {
-          // ✅ cache-buster to avoid any weird edge/mobile caching
-          const ts = Date.now();
-          const url =
-            `${BACKEND_BASE_URL}/availability?date=${encodeURIComponent(date)}` +
-            `&apptType=${encodeURIComponent(apptType)}` +
-            `&isNewPatient=${isNewPatient}` +
-            `&_ts=${ts}`;
-
-          const res = await fetch(url, {
+          // Try normal fetch first
+          const res = await fetch(baseUrl, {
             method: "GET",
             mode: "cors",
             credentials: "omit",
@@ -368,7 +416,6 @@
           });
 
           const text = await res.text();
-
           let data;
           try {
             data = JSON.parse(text);
@@ -379,37 +426,63 @@
           if (!res.ok || !data.ok) {
             console.error("availability error:", { status: res.status, text, data });
             timeSelect.innerHTML = '<option value="">Unable to load times</option>';
-
-            // ✅ Visible diagnostic on the page (mobile-friendly)
             setAvailabilityError(
-              `Unable to load times.\nHTTP ${res.status}\n` +
-              `${String(data.error || text || "").slice(0, 300)}`
+              `Unable to load times.\nHTTP ${res.status}\n${String(
+                data.error || text || ""
+              ).slice(0, 300)}`
             );
-
             return;
           }
 
-          timeSelect.innerHTML = '<option value="">Select a time</option>';
-
-          if (!data.slots || data.slots.length === 0) {
-            timeSelect.innerHTML =
-              '<option value="">No available times for this date</option>';
-            return;
-          }
-
-          data.slots.forEach((slot) => {
-            const opt = document.createElement("option");
-            opt.value = slot;
-            opt.textContent = slot;
-            timeSelect.appendChild(opt);
-          });
+          fillTimes(data, timeSelect);
+          return;
         } catch (err) {
-          console.error("availability network error:", err);
-          timeSelect.innerHTML = '<option value="">Unable to load times</option>';
-          setAvailabilityError(
-            `Unable to load times.\nNetwork error:\n${String(err).slice(0, 300)}`
-          );
+          // ✅ If fetch is blocked ("Load failed"), use JSONP fallback
+          console.warn("fetch failed, trying JSONP fallback:", err);
+
+          try {
+            const data = await jsonpRequest(baseUrl, 12000);
+            if (!data || !data.ok) {
+              timeSelect.innerHTML = '<option value="">Unable to load times</option>';
+              setAvailabilityError(
+                `Unable to load times.\nJSONP error:\n${String(
+                  (data && data.error) || "Unknown JSONP error"
+                ).slice(0, 300)}`
+              );
+              return;
+            }
+
+            fillTimes(data, timeSelect);
+            return;
+          } catch (jsonpErr) {
+            console.error("availability network error:", err, "jsonp:", jsonpErr);
+            timeSelect.innerHTML = '<option value="">Unable to load times</option>';
+            setAvailabilityError(
+              `Unable to load times.\nNetwork error:\n${String(err).slice(
+                0,
+                150
+              )}\n\nJSONP fallback failed:\n${String(jsonpErr).slice(0, 150)}`
+            );
+            return;
+          }
         }
+      }
+
+      function fillTimes(data, timeSelect) {
+        timeSelect.innerHTML = '<option value="">Select a time</option>';
+
+        if (!data.slots || data.slots.length === 0) {
+          timeSelect.innerHTML =
+            '<option value="">No available times for this date</option>';
+          return;
+        }
+
+        data.slots.forEach((slot) => {
+          const opt = document.createElement("option");
+          opt.value = slot;
+          opt.textContent = slot;
+          timeSelect.appendChild(opt);
+        });
       }
 
       async function submitRequest() {
