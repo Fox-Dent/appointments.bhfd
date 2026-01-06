@@ -76,11 +76,24 @@
       .hidden {
         display: none;
       }
+
+      /* Existing small note style */
       .note {
         font-size: 13px;
         color: #555;
         margin-top: 8px;
       }
+
+      /* ✅ NEW: Larger, bold, centered note for Step 6 */
+      .note-strong {
+        font-size: 16px;
+        font-weight: 800;
+        color: #1f2a24;
+        text-align: center;
+        margin-top: 14px;
+        line-height: 1.35;
+      }
+
       input[type="checkbox"] {
         width: auto;
         margin-right: 8px;
@@ -159,11 +172,14 @@
       <!-- ✅ Local-file / Outlook-preview warning -->
       <div id="hostWarning" class="warning">
         <b>This page was opened as a file/attachment.</b>
-        iPhone browsers block online scheduling requests from this mode (ex: Outlook preview / “edge://external-file”).
+        iPhone browsers block online scheduling requests from this mode (ex:
+        Outlook preview / “edge://external-file”).
         <br />
         Please open the hosted booking link instead:
         <br />
-        <a id="hostedLink" href="#" target="_blank" rel="noopener">Open the online booking page</a>
+        <a id="hostedLink" href="#" target="_blank" rel="noopener"
+          >Open the online booking page</a
+        >
       </div>
 
       <div class="brand">
@@ -285,15 +301,16 @@
 
         <div id="availabilityError" class="errorline"></div>
 
-        <p class="note">
-          After clicking "Confirm Appointment" please wait, page will update with
-          confirmation.
-        </p>
-
         <div class="button-row">
           <button class="back-btn" onclick="showStep('step5')">Back</button>
           <button onclick="submitRequest()">Confirm Appointment</button>
         </div>
+
+        <!-- ✅ MOVED + BOLDED + LARGER -->
+        <p class="note note-strong">
+          After clicking "Confirm Appointment" please wait — page will update with
+          confirmation.
+        </p>
       </div>
 
       <!-- STEP 7 -->
@@ -337,7 +354,7 @@
 
       function isBlockedContext() {
         // Works for: file://, edge://external-file, about:, etc.
-        const proto = (location && location.protocol) ? location.protocol.toLowerCase() : "";
+        const proto = location && location.protocol ? location.protocol.toLowerCase() : "";
         return proto !== "http:" && proto !== "https:";
       }
 
@@ -405,8 +422,8 @@
           timeSelect.innerHTML = '<option value="">Unable to load times</option>';
           setAvailabilityError(
             "This page was opened as a file/attachment (ex: Outlook / edge://external-file).\n" +
-            "iPhone browsers block online scheduling requests in this mode.\n\n" +
-            "Please open the hosted booking link at the top of this page."
+              "iPhone browsers block online scheduling requests in this mode.\n\n" +
+              "Please open the hosted booking link at the top of this page."
           );
           return;
         }
@@ -481,7 +498,7 @@
         if (isBlockedContext()) {
           return alert(
             "This page was opened as a file/attachment (ex: Outlook preview).\n" +
-            "Please open the hosted booking link instead."
+              "Please open the hosted booking link instead."
           );
         }
 
