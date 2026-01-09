@@ -5,9 +5,8 @@
     <title>Book Online at Brook Hollow Family Dentistry</title>
 
     <!-- FoxDent Tab Icon -->
-    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="icon" type="image/png" href="/favicon.png" />
 
-    
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style>
       body {
@@ -89,7 +88,7 @@
         margin-top: 8px;
       }
 
-      /* ✅ NEW: Larger, bold, centered note for Step 6 */
+      /* ✅ Larger, bold, centered note for Step 6 */
       .note-strong {
         font-size: 16px;
         font-weight: 800;
@@ -168,6 +167,45 @@
       }
       .warning a:hover {
         background: #5f7f6a;
+      }
+
+      /* ✅ NEW: WebForms callout on confirmation page */
+      .forms-callout {
+        margin-top: 16px;
+        padding: 16px;
+        border-radius: 12px;
+        background: #f4efe7;
+        border: 1px solid #e3ddd3;
+        text-align: center;
+      }
+      .forms-callout h3 {
+        margin: 0 0 8px 0;
+        color: #1f2a24;
+        font-size: 16px;
+      }
+      .forms-callout p {
+        margin: 0 0 12px 0;
+        font-size: 0.95rem;
+        color: #1f2a24;
+        opacity: 0.9;
+      }
+      .btn-link {
+        display: inline-block;
+        padding: 12px 16px;
+        border-radius: 10px;
+        background: #6f8f7a;
+        color: #ffffff;
+        font-weight: 800;
+        text-decoration: none;
+      }
+      .btn-link:hover {
+        background: #5f7f6a;
+      }
+      .forms-note {
+        margin-top: 10px;
+        font-size: 0.85rem;
+        color: #1f2a24;
+        opacity: 0.75;
       }
     </style>
   </head>
@@ -311,7 +349,6 @@
           <button onclick="submitRequest()">Confirm Appointment</button>
         </div>
 
-        <!-- ✅ MOVED + BOLDED + LARGER -->
         <p class="note note-strong">
           After clicking "Confirm Appointment" please wait — page will update with
           confirmation. Please don't click more than once, thank you.
@@ -323,7 +360,28 @@
         <h2>Appointment Confirmed</h2>
         <div class="confirm-box">
           <div id="confirmSummary"></div>
+
+          <!-- ✅ NEW: WebForms link/button shown on confirmation page -->
+          <div class="forms-callout">
+            <h3>Complete Your Patient Forms</h3>
+            <p>
+              To save time at your visit, please complete your patient forms online
+              before your appointment.
+            </p>
+            <a
+              class="btn-link"
+              href="https://patientviewer.com/WebFormsGWT/GWT/WebForms/WebForms.html?DOID=31638&RKID=9571&WSDID=166700"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Complete Patient Forms
+            </a>
+            <div class="forms-note">
+              Opens in a new tab. It usually takes 5–10 minutes to complete.
+            </div>
+          </div>
         </div>
+
         <p class="small" style="margin-top: 12px;">
           If you need to change or cancel, please call the office.
         </p>
