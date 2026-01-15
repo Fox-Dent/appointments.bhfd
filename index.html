@@ -169,7 +169,7 @@
         background: #5f7f6a;
       }
 
-      /* ✅ NEW: WebForms callout on confirmation page */
+      /* ✅ WebForms callout on confirmation page */
       .forms-callout {
         margin-top: 16px;
         padding: 16px;
@@ -361,7 +361,6 @@
         <div class="confirm-box">
           <div id="confirmSummary"></div>
 
-          <!-- ✅ NEW: WebForms link/button shown on confirmation page -->
           <div class="forms-callout">
             <h3>Complete Your Patient Forms</h3>
             <p>
@@ -369,8 +368,9 @@
               before your appointment.
             </p>
             <a
+              id="patientFormsBtn"
               class="btn-link"
-              href="https://patientviewer.com/WebFormsGWT/GWT/WebForms/WebForms.html?DOID=31638&RKID=9571&WSDID=166700"
+              href="#"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -396,6 +396,13 @@
       // ✅ CHANGE THIS to your hosted frontend URL (GitHub Pages / Cloudflare Pages)
       // Example: "https://calcifer6456.github.io/foxdent-scheduler/"
       const HOSTED_FRONTEND_URL = "https://fox-dent.github.io/appointments.bhfd/";
+
+      // ✅ Open Dental WebForms (different per patient type)
+      const NEW_PATIENT_FORMS_URL =
+        "https://patientviewer.com/WebFormsGWT/GWT/WebForms/WebForms.html?DOID=31638&RKID=9571&WSDID=166700";
+
+      const EXISTING_PATIENT_FORMS_URL =
+        "https://patientviewer.com/WebFormsGWT/GWT/WebForms/WebForms.html?DOID=31638&RKID=9571&WSDID=189407";
 
       function showStep(stepId) {
         document
@@ -430,6 +437,17 @@
           warning.style.display = "block";
         }
       })();
+
+      function updatePatientFormsLink() {
+        const status = document.getElementById("patientStatus").value;
+
+        // Default to new patient link if somehow blank
+        const formsUrl =
+          status === "existing" ? EXISTING_PATIENT_FORMS_URL : NEW_PATIENT_FORMS_URL;
+
+        const btn = document.getElementById("patientFormsBtn");
+        if (btn) btn.href = formsUrl;
+      }
 
       function goToStep2() {
         const status = document.getElementById("patientStatus").value;
@@ -629,6 +647,10 @@
             <b>Patient:</b> ${data.patientName}<br>
             <b>Date/Time:</b> ${data.appointmentDate} at ${data.appointmentTime}<br>
           `;
+
+          // ✅ Set the correct WebForms link (new vs existing) on the confirmation page
+          updatePatientFormsLink();
+
           showStep("step7");
         } catch (err) {
           console.error(err);
