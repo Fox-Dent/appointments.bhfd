@@ -61,6 +61,10 @@
       button:hover {
         background: #5f7f6a;
       }
+      button:disabled {
+        opacity: 0.75;
+        cursor: not-allowed;
+      }
       .button-row {
         display: flex;
         justify-content: space-between;
@@ -346,7 +350,7 @@
 
         <div class="button-row">
           <button class="back-btn" onclick="showStep('step5')">Back</button>
-          <button onclick="submitRequest()">Confirm Appointment</button>
+          <button id="confirmBtn" onclick="submitRequest()">Confirm Appointment</button>
         </div>
 
         <p class="note note-strong">
@@ -404,6 +408,9 @@
       const EXISTING_PATIENT_FORMS_URL =
         "https://patientviewer.com/WebFormsGWT/GWT/WebForms/WebForms.html?DOID=31638&RKID=9571&WSDID=189407";
 
+      // ✅ Simple click-lock to prevent duplicate submissions
+      let bookingInProgress = false;
+
       function showStep(stepId) {
         document
           .querySelectorAll('[id^="step"]')
@@ -424,7 +431,8 @@
 
       function isBlockedContext() {
         // Works for: file://, edge://external-file, about:, etc.
-        const proto = location && location.protocol ? location.protocol.toLowerCase() : "";
+        const proto =
+          location && location.protocol ? location.protocol.toLowerCase() : "";
         return proto !== "http:" && proto !== "https:";
       }
 
@@ -574,52 +582,82 @@
         }
       }
 
-      async function submitRequest() {
-        // ✅ If opened from attachment/local mode, block booking too
-        if (isBlockedContext()) {
-          return alert(
-            "This page was opened as a file/attachment (ex: Outlook preview).\n" +
-              "Please open the hosted booking link instead."
-          );
+      function lockBookingUI(locked) {
+        const confirmBtn = document.getElementById("confirmBtn");
+        const backBtn = document.querySelector('#step6 .button-row .back-btn');
+
+        if (locked) {
+          if (confirmBtn) {
+            confirmBtn.disabled = true;
+            confirmBtn.dataset.originalText = confirmBtn.textContent || "Confirm Appointment";
+            confirmBtn.textContent = "Booking…";
+          }
+          if (backBtn) backBtn.disabled = true;
+        } else {
+          if (confirmBtn) {
+            confirmBtn.disabled = false;
+            confirmBtn.textContent = confirmBtn.dataset.originalText || "Confirm Appointment";
+          }
+          if (backBtn) backBtn.disabled = false;
         }
+      }
 
-        const appointmentDate = document.getElementById("appointmentDate").value;
-        const appointmentTime = document.getElementById("appointmentTime").value;
-        if (!appointmentDate || !appointmentTime)
-          return alert("Please select a date and time.");
-
-        const patientStatus = document.getElementById("patientStatus").value;
-        const appointmentType = document.getElementById("appointmentType").value;
-
-        const payload = {
-          appointmentDate,
-          appointmentTime,
-          patientStatus,
-          appointmentType,
-          patient: {
-            firstName: document.getElementById("firstName").value.trim(),
-            lastName: document.getElementById("lastName").value.trim(),
-            dob: document.getElementById("dob").value,
-            phone: document.getElementById("phone").value.trim(),
-            email: document.getElementById("email").value.trim(),
-          },
-          insurance: document.getElementById("noInsurance").checked
-            ? { noInsurance: true }
-            : {
-                noInsurance: false,
-                carrier: document.getElementById("insCarrier").value.trim(),
-                policyHolderName: document
-                  .getElementById("insPolicyHolderName")
-                  .value.trim(),
-                policyHolderDob: document.getElementById("insPolicyHolderDob").value,
-                memberId: document.getElementById("insMemberId").value.trim(),
-                employer: document.getElementById("insEmployer").value.trim(),
-                groupId: document.getElementById("insGroupId").value.trim(),
-                zip: document.getElementById("insZip").value.trim(),
-              },
-        };
+      async function submitRequest() {
+        // ✅ Super simple double-click prevention
+        if (bookingInProgress) return;
+        bookingInProgress = true;
+        lockBookingUI(true);
 
         try {
+          // ✅ If opened from attachment/local mode, block booking too
+          if (isBlockedContext()) {
+            bookingInProgress = false;
+            lockBookingUI(false);
+            return alert(
+              "This page was opened as a file/attachment (ex: Outlook preview).\n" +
+                "Please open the hosted booking link instead."
+            );
+          }
+
+          const appointmentDate = document.getElementById("appointmentDate").value;
+          const appointmentTime = document.getElementById("appointmentTime").value;
+          if (!appointmentDate || !appointmentTime) {
+            bookingInProgress = false;
+            lockBookingUI(false);
+            return alert("Please select a date and time.");
+          }
+
+          const patientStatus = document.getElementById("patientStatus").value;
+          const appointmentType = document.getElementById("appointmentType").value;
+
+          const payload = {
+            appointmentDate,
+            appointmentTime,
+            patientStatus,
+            appointmentType,
+            patient: {
+              firstName: document.getElementById("firstName").value.trim(),
+              lastName: document.getElementById("lastName").value.trim(),
+              dob: document.getElementById("dob").value,
+              phone: document.getElementById("phone").value.trim(),
+              email: document.getElementById("email").value.trim(),
+            },
+            insurance: document.getElementById("noInsurance").checked
+              ? { noInsurance: true }
+              : {
+                  noInsurance: false,
+                  carrier: document.getElementById("insCarrier").value.trim(),
+                  policyHolderName: document
+                    .getElementById("insPolicyHolderName")
+                    .value.trim(),
+                  policyHolderDob: document.getElementById("insPolicyHolderDob").value,
+                  memberId: document.getElementById("insMemberId").value.trim(),
+                  employer: document.getElementById("insEmployer").value.trim(),
+                  groupId: document.getElementById("insGroupId").value.trim(),
+                  zip: document.getElementById("insZip").value.trim(),
+                },
+          };
+
           const res = await fetch(`${BACKEND_BASE_URL}/book`, {
             method: "POST",
             mode: "cors",
@@ -639,6 +677,8 @@
 
           if (!res.ok || !data.ok) {
             console.error("book error:", { status: res.status, data, text });
+            bookingInProgress = false;
+            lockBookingUI(false);
             return alert(data.error || "Booking failed. Please try again.");
           }
 
@@ -652,8 +692,11 @@
           updatePatientFormsLink();
 
           showStep("step7");
+          // No unlock needed after success; user is on step7
         } catch (err) {
           console.error(err);
+          bookingInProgress = false;
+          lockBookingUI(false);
           alert("Unable to book appointment right now. Please try again.");
         }
       }
