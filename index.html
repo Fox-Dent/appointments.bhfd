@@ -1,705 +1,245 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Book Online at Brook Hollow Family Dentistry</title>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Book Online at Brook Hollow Family Dentistry</title>
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  <style>
+    * { box-sizing: border-box; }
+    body { font-family: Arial, sans-serif; background:#f3efe8; margin:0; color:#1f2a24; }
+    .container { max-width:600px; margin:40px auto; background:#fff; padding:30px; border-radius:10px; box-shadow:0 4px 12px rgba(0,0,0,.1); }
+    h2 { margin-top:0; color:#6f8f7a; }
+    label { display:block; margin-top:15px; font-weight:bold; }
+    select, input:not([type="checkbox"]) { width:100%; padding:10px; margin-top:5px; border-radius:6px; border:1px solid #cfd6d1; font-size:15px; background:#fff; }
+    select:focus, input:focus { outline:2px solid #6f8f7a; outline-offset:1px; }
+    button { background:#6f8f7a; color:#fff; border:0; border-radius:6px; padding:12px; cursor:pointer; font-size:16px; font-weight:bold; }
+    button:hover { background:#5f7f6a; }
+    button:disabled { opacity:.65; cursor:not-allowed; }
+    .button-row { display:flex; gap:10px; margin-top:25px; }
+    .button-row button { flex:1; min-width:0; }
+    .back-btn { background:#d9d4cc; color:#1f2a24; }
+    .back-btn:hover { background:#cfc9bf; }
+    .hidden { display:none !important; }
+    .note { font-size:13px; color:#555; margin-top:8px; line-height:1.5; }
+    .note-strong { font-size:16px; font-weight:800; color:#1f2a24; text-align:center; margin-top:14px; line-height:1.35; }
+    input[type="checkbox"] { width:auto; margin-right:8px; }
+    .brand { display:flex; align-items:center; gap:12px; margin-bottom:20px; }
+    .logo { width:60px; max-width:60px; height:auto; }
+    .brand-text { font-size:14px; font-weight:600; opacity:.85; }
+    .confirm-box { background:#f7f3ed; border:1px solid #e3ddd3; padding:14px; border-radius:10px; margin-top:15px; }
+    .small { font-size:13px; color:#444; line-height:1.5; }
+    .errorline { margin-top:10px; padding:10px; border-radius:8px; background:#fff3f3; border:1px solid #ffd0d0; color:#8a1f1f; font-size:13px; display:none; white-space:pre-wrap; overflow-wrap:anywhere; }
+    .warning { margin-bottom:18px; padding:14px; border-radius:10px; background:#fff8e6; border:1px solid #ffe2a8; color:#5a4300; display:none; }
+    .warning b { display:block; margin-bottom:6px; }
+    .warning a { display:inline-block; margin-top:10px; background:#6f8f7a; color:#fff; padding:10px 12px; border-radius:8px; text-decoration:none; font-weight:bold; }
+    .forms-callout { margin-top:16px; padding:16px; border-radius:12px; background:#f4efe7; border:1px solid #e3ddd3; text-align:center; }
+    .forms-callout h3 { margin:0 0 8px; color:#1f2a24; font-size:16px; }
+    .forms-callout p { margin:0 0 12px; font-size:.95rem; line-height:1.5; }
+    .btn-link { display:inline-block; padding:12px 16px; border-radius:10px; background:#6f8f7a; color:#fff; font-weight:800; text-decoration:none; }
+    .btn-link:hover { background:#5f7f6a; }
+    .forms-note { margin-top:10px; font-size:.85rem; opacity:.75; }
+    .reminder { background:#f4efe7; border:1px solid #e3ddd3; padding:13px; border-radius:10px; margin-top:16px; font-size:14px; line-height:1.5; }
+    .modal-backdrop { position:fixed; inset:0; background:rgba(18,33,25,.55); display:flex; align-items:center; justify-content:center; padding:18px; z-index:10; }
+    .modal { background:#fff; border-radius:14px; padding:26px; max-width:490px; width:100%; box-shadow:0 12px 45px rgba(0,0,0,.2); max-height:90vh; overflow:auto; }
+    .modal h2 { margin:0 0 14px; }
+    .modal p { line-height:1.55; }
+    .modal button { width:100%; margin-top:10px; }
+    @media(max-width:640px) { .container { margin:12px; padding:22px 18px; } .brand { margin-bottom:18px; } .button-row { gap:8px; } .button-row button { font-size:14px; } }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <div id="hostWarning" class="warning"><b>This page was opened as a file/attachment.</b>Some browsers block scheduling requests in this mode. Please open the hosted booking link instead:<br><a id="hostedLink" href="#" target="_blank" rel="noopener noreferrer">Open the online booking page</a></div>
+    <div class="brand"><img src="./FoxDentLogo.png" alt="FoxDent" class="logo" /><div class="brand-text">Powered by FoxDent</div></div>
 
-    <!-- FoxDent Tab Icon -->
-    <link rel="icon" type="image/png" href="/favicon.png" />
+    <section id="step1">
+      <h2>Welcome to Brook Hollow Family Dentistry</h2>
+      <label for="patientStatus">Are you a new or existing patient?</label>
+      <select id="patientStatus"><option value="">Select one</option><option value="new">New Patient</option><option value="existing">Existing Patient</option></select>
+      <div class="button-row"><button type="button" onclick="goToStep2()">Next</button></div>
+    </section>
 
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        background: #f3efe8;
-        margin: 0;
-        padding: 0;
-        color: #1f2a24;
-      }
-      .container {
-        max-width: 600px;
-        margin: 40px auto;
-        background: #fff;
-        padding: 30px;
-        border-radius: 10px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      }
-      h2 {
-        margin-top: 0;
-        color: #6f8f7a;
-      }
-      label {
-        display: block;
-        margin-top: 15px;
-        font-weight: bold;
-      }
-      select,
-      input {
-        width: 100%;
-        padding: 10px;
-        margin-top: 5px;
-        border-radius: 6px;
-        border: 1px solid #cfd6d1;
-        font-size: 15px;
-      }
-      select:focus,
-      input:focus {
-        outline: none;
-        border-color: #6f8f7a;
-      }
-      button {
-        margin-top: 30px;
-        background: #6f8f7a;
-        color: #fff;
-        border: none;
-        border-radius: 6px;
-        padding: 12px;
-        cursor: pointer;
-        font-size: 16px;
-        font-weight: bold;
-      }
-      button:hover {
-        background: #5f7f6a;
-      }
-      button:disabled {
-        opacity: 0.75;
-        cursor: not-allowed;
-      }
-      .button-row {
-        display: flex;
-        justify-content: space-between;
-        margin-top: 25px;
-        gap: 10px;
-      }
-      .button-row button {
-        width: 48%;
-      }
-      .back-btn {
-        background: #d9d4cc;
-        color: #1f2a24;
-      }
-      .back-btn:hover {
-        background: #cfc9bf;
-      }
-      .hidden {
-        display: none;
-      }
+    <section id="step2" class="hidden">
+      <h2>Appointment Type</h2>
+      <label for="appointmentType">What are we coming in for today?</label>
+      <select id="appointmentType"><option value="">Select appointment type</option><option value="emergency">Emergency</option><option value="consult">Consult Exam</option><option value="adult_cleaning">Checkup and Cleaning – Adult</option><option value="child_cleaning">Checkup and Cleaning – Child</option></select>
+      <div class="button-row"><button type="button" class="back-btn" onclick="showStep('step1')">Back</button><button type="button" onclick="goToStep3()">Next</button></div>
+    </section>
 
-      /* Existing small note style */
-      .note {
-        font-size: 13px;
-        color: #555;
-        margin-top: 8px;
-      }
+    <section id="step3" class="hidden">
+      <h2>Select Appointment Date &amp; Time</h2>
+      <p class="note">Available appointments shown below are based on real-time availability.</p>
+      <label for="appointmentDate">Select a Date</label>
+      <input type="date" id="appointmentDate" onchange="fetchAvailabilityForSelectedDate()" />
+      <label for="appointmentTime">Select a Time</label>
+      <select id="appointmentTime" disabled><option value="">Select a date first</option></select>
+      <div id="availabilityError" class="errorline" role="alert"></div>
+      <div class="button-row"><button type="button" class="back-btn" onclick="showStep('step2')">Back</button><button type="button" onclick="goToStep4()">Next</button></div>
+    </section>
 
-      /* ✅ Larger, bold, centered note for Step 6 */
-      .note-strong {
-        font-size: 16px;
-        font-weight: 800;
-        color: #1f2a24;
-        text-align: center;
-        margin-top: 14px;
-        line-height: 1.35;
-      }
+    <section id="step4" class="hidden">
+      <h2>Patient Information</h2>
+      <label for="firstName">First Name</label><input type="text" id="firstName" autocomplete="given-name" />
+      <label for="lastName">Last Name</label><input type="text" id="lastName" autocomplete="family-name" />
+      <label for="dob">Date of Birth</label><input type="date" id="dob" />
+      <label for="phone">Contact Phone Number</label><input type="tel" id="phone" autocomplete="tel" />
+      <label for="email">Contact Email</label><input type="email" id="email" autocomplete="email" />
+      <div class="button-row"><button type="button" class="back-btn" onclick="showStep('step3')">Back</button><button type="button" onclick="goToStep5()">Next</button></div>
+    </section>
 
-      input[type="checkbox"] {
-        width: auto;
-        margin-right: 8px;
-      }
-      .brand {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        margin-bottom: 20px;
-      }
-      .logo {
-        max-width: 60px;
-        width: 60px;
-        height: auto;
-      }
-      .brand-text {
-        font-size: 14px;
-        font-weight: 600;
-        color: #1f2a24;
-        opacity: 0.85;
-      }
-      .confirm-box {
-        background: #f7f3ed;
-        border: 1px solid #e3ddd3;
-        padding: 14px;
-        border-radius: 10px;
-        margin-top: 15px;
-      }
-      .small {
-        font-size: 13px;
-        color: #444;
-      }
-      .errorline {
-        margin-top: 10px;
-        padding: 10px;
-        border-radius: 8px;
-        background: #fff3f3;
-        border: 1px solid #ffd0d0;
-        color: #8a1f1f;
-        font-size: 13px;
-        display: none;
-        white-space: pre-wrap;
-        word-break: break-word;
-      }
-      .warning {
-        margin-bottom: 18px;
-        padding: 14px;
-        border-radius: 10px;
-        background: #fff8e6;
-        border: 1px solid #ffe2a8;
-        color: #5a4300;
-        display: none;
-      }
-      .warning b {
-        display: block;
-        margin-bottom: 6px;
-      }
-      .warning a {
-        display: inline-block;
-        margin-top: 10px;
-        background: #6f8f7a;
-        color: #fff;
-        padding: 10px 12px;
-        border-radius: 8px;
-        text-decoration: none;
-        font-weight: bold;
-      }
-      .warning a:hover {
-        background: #5f7f6a;
-      }
-
-      /* ✅ WebForms callout on confirmation page */
-      .forms-callout {
-        margin-top: 16px;
-        padding: 16px;
-        border-radius: 12px;
-        background: #f4efe7;
-        border: 1px solid #e3ddd3;
-        text-align: center;
-      }
-      .forms-callout h3 {
-        margin: 0 0 8px 0;
-        color: #1f2a24;
-        font-size: 16px;
-      }
-      .forms-callout p {
-        margin: 0 0 12px 0;
-        font-size: 0.95rem;
-        color: #1f2a24;
-        opacity: 0.9;
-      }
-      .btn-link {
-        display: inline-block;
-        padding: 12px 16px;
-        border-radius: 10px;
-        background: #6f8f7a;
-        color: #ffffff;
-        font-weight: 800;
-        text-decoration: none;
-      }
-      .btn-link:hover {
-        background: #5f7f6a;
-      }
-      .forms-note {
-        margin-top: 10px;
-        font-size: 0.85rem;
-        color: #1f2a24;
-        opacity: 0.75;
-      }
-    </style>
-  </head>
-
-  <body>
-    <div class="container">
-      <!-- ✅ Local-file / Outlook-preview warning -->
-      <div id="hostWarning" class="warning">
-        <b>This page was opened as a file/attachment.</b>
-        iPhone browsers block online scheduling requests from this mode (ex:
-        Outlook preview / “edge://external-file”).
-        <br />
-        Please open the hosted booking link instead:
-        <br />
-        <a id="hostedLink" href="#" target="_blank" rel="noopener"
-          >Open the online booking page</a
-        >
+    <section id="step5" class="hidden">
+      <h2>Insurance Information</h2>
+      <label><input type="checkbox" id="noInsurance" onchange="toggleInsurance()" /> I don’t have insurance, I will be paying out of pocket</label>
+      <div id="insuranceFields">
+        <label for="insCarrier">Insurance Carrier</label><input type="text" id="insCarrier" />
+        <label for="insPolicyHolderName">Policy Holder Name</label><input type="text" id="insPolicyHolderName" />
+        <label for="insPolicyHolderDob">Policy Holder Date of Birth</label><input type="date" id="insPolicyHolderDob" />
+        <label for="insMemberId">Member ID</label><input type="text" id="insMemberId" />
+        <label for="insEmployer">Employer / Group Name</label><input type="text" id="insEmployer" />
+        <label for="insGroupId">Group ID</label><input type="text" id="insGroupId" />
+        <label for="insZip">Postal Code</label><input type="text" id="insZip" />
       </div>
+      <div class="button-row"><button type="button" class="back-btn" id="insuranceBackBtn" onclick="showStep('step4')">Back</button><button type="button" id="confirmBtn" onclick="submitRequest()">Confirm Appointment</button></div>
+      <p class="note note-strong">After clicking "Confirm Appointment" please wait — page will update with confirmation. Please don't click more than once, thank you.</p>
+      <div class="reminder"><strong>Reminder:</strong> After booking, please complete your full patient forms using the link on the confirmation page. The basic information provided here does not replace the required patient forms.</div>
+      <div id="bookingError" class="errorline" role="alert"></div>
+    </section>
 
-      <div class="brand">
-        <img src="./FoxDentLogo.png" alt="FoxDent" class="logo" />
-        <div class="brand-text">Powered by FoxDent</div>
+    <section id="step6" class="hidden">
+      <h2>Appointment Successfully Booked</h2>
+      <div class="confirm-box">
+        <div id="confirmSummary"></div>
+        <div class="forms-callout"><h3>Complete Your Patient Forms</h3><p>To save time at your visit, please complete your patient forms online before your appointment. <strong>These forms are still required even though you entered basic information during booking.</strong></p><a id="patientFormsBtn" class="btn-link" href="#" target="_blank" rel="noopener noreferrer">Complete Patient Forms</a><div class="forms-note">Opens in a new tab. It usually takes 5–10 minutes to complete.</div></div>
       </div>
+      <p class="small" style="margin-top:12px;"><strong>Need to reschedule or cancel?</strong> Please call our office directly so we can update or cancel your original appointment. Booking another appointment online does not cancel your existing appointment, and we want to make sure your original time is available for another patient.</p>
+      <button type="button" onclick="window.location.reload()">Book Another Appointment</button>
+    </section>
+  </main>
 
-      <!-- STEP 1 -->
-      <div id="step1">
-        <h2>Welcome to Brook Hollow Family Dentistry</h2>
-        <label>Are you a new or existing patient?</label>
-        <select id="patientStatus">
-          <option value="">Select one</option>
-          <option value="new">New Patient</option>
-          <option value="existing">Existing Patient</option>
-        </select>
-        <button onclick="goToStep2()">Next</button>
-      </div>
-
-      <!-- STEP 2 -->
-      <div id="step2" class="hidden">
-        <h2>Appointment Type</h2>
-        <label>What are we coming in for today?</label>
-        <select id="appointmentType">
-          <option value="">Select appointment type</option>
-          <option value="emergency">Emergency</option>
-          <option value="consult">Consult Exam</option>
-          <option value="adult_cleaning">Checkup and Cleaning – Adult</option>
-          <option value="child_cleaning">Checkup and Cleaning – Child</option>
-        </select>
-        <div class="button-row">
-          <button class="back-btn" onclick="showStep('step1')">Back</button>
-          <button onclick="goToStep3()">Next</button>
-        </div>
-      </div>
-
-      <!-- STEP 3 -->
-      <div id="step3" class="hidden">
-        <h2>Who is this appointment for?</h2>
-        <select id="forWhom">
-          <option value="">Select one</option>
-          <option value="self">I’m making this appointment for myself</option>
-          <option value="other">I’m making this appointment for someone else</option>
-        </select>
-        <div class="button-row">
-          <button class="back-btn" onclick="showStep('step2')">Back</button>
-          <button onclick="goToStep4()">Next</button>
-        </div>
-      </div>
-
-      <!-- STEP 4 -->
-      <div id="step4" class="hidden">
-        <h2>Patient Information</h2>
-        <label>First Name</label>
-        <input type="text" id="firstName" />
-        <label>Last Name</label>
-        <input type="text" id="lastName" />
-        <label>Date of Birth</label>
-        <input type="date" id="dob" />
-        <label>Contact Phone Number</label>
-        <input type="tel" id="phone" />
-        <label>Contact Email</label>
-        <input type="email" id="email" />
-        <div class="button-row">
-          <button class="back-btn" onclick="showStep('step3')">Back</button>
-          <button onclick="goToStep5()">Next</button>
-        </div>
-      </div>
-
-      <!-- STEP 5 -->
-      <div id="step5" class="hidden">
-        <h2>Insurance Information</h2>
-        <label>
-          <input type="checkbox" id="noInsurance" onchange="toggleInsurance()" />
-          I don’t have insurance, I will be paying out of pocket
-        </label>
-
-        <div id="insuranceFields">
-          <label>Insurance Carrier</label>
-          <input type="text" id="insCarrier" />
-          <label>Policy Holder Name</label>
-          <input type="text" id="insPolicyHolderName" />
-          <label>Policy Holder Date of Birth</label>
-          <input type="date" id="insPolicyHolderDob" />
-          <label>Member ID</label>
-          <input type="text" id="insMemberId" />
-          <label>Employer / Group Name</label>
-          <input type="text" id="insEmployer" />
-          <label>Group ID</label>
-          <input type="text" id="insGroupId" />
-          <label>Postal Code</label>
-          <input type="text" id="insZip" />
-        </div>
-
-        <div class="button-row">
-          <button class="back-btn" onclick="showStep('step4')">Back</button>
-          <button onclick="goToStep6()">Next</button>
-        </div>
-      </div>
-
-      <!-- STEP 6 -->
-      <div id="step6" class="hidden">
-        <h2>Select Appointment Date & Time</h2>
-        <p class="note">
-          Available appointments shown below are based on real-time availability.
-        </p>
-
-        <label>Select a Date</label>
-        <input
-          type="date"
-          id="appointmentDate"
-          onchange="fetchAvailabilityForSelectedDate()"
-        />
-
-        <label>Select a Time</label>
-        <select id="appointmentTime">
-          <option value="">Select a time</option>
-        </select>
-
-        <div id="availabilityError" class="errorline"></div>
-
-        <div class="button-row">
-          <button class="back-btn" onclick="showStep('step5')">Back</button>
-          <button id="confirmBtn" onclick="submitRequest()">Confirm Appointment</button>
-        </div>
-
-        <p class="note note-strong">
-          After clicking "Confirm Appointment" please wait — page will update with
-          confirmation. Please don't click more than once, thank you.
-        </p>
-      </div>
-
-      <!-- STEP 7 -->
-      <div id="step7" class="hidden">
-        <h2>Appointment Confirmed</h2>
-        <div class="confirm-box">
-          <div id="confirmSummary"></div>
-
-          <div class="forms-callout">
-            <h3>Complete Your Patient Forms</h3>
-            <p>
-              To save time at your visit, please complete your patient forms online
-              before your appointment.
-            </p>
-            <a
-              id="patientFormsBtn"
-              class="btn-link"
-              href="#"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Complete Patient Forms
-            </a>
-            <div class="forms-note">
-              Opens in a new tab. It usually takes 5–10 minutes to complete.
-            </div>
-          </div>
-        </div>
-
-        <p class="small" style="margin-top: 12px;">
-          If you need to change or cancel, please call the office.
-        </p>
-        <button onclick="window.location.reload()">Book Another Appointment</button>
-      </div>
+  <div id="infoModal" class="modal-backdrop hidden" role="presentation">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-describedby="modalDescription">
+      <h2 id="modalTitle">Important Information</h2>
+      <div id="modalDescription"><p>Before we can book your appointment, we'll need to collect some basic patient and insurance information.</p><p>This information helps us locate your existing patient record or create a new one for scheduling purposes.</p><p><strong>You'll still need to complete your full patient forms after booking</strong> so your medical history and other important information can be submitted to our office.</p></div>
+      <button type="button" id="modalContinue" onclick="continueToPatientInformation()">Continue</button>
     </div>
+  </div>
 
-    <script>
-      // IMPORTANT: no trailing slash
-      const BACKEND_BASE_URL = "https://foxdentscheduling.calcifer6456.workers.dev";
+  <script>
+    const BACKEND_BASE_URL = "https://foxdentscheduling.calcifer6456.workers.dev";
+    const HOSTED_FRONTEND_URL = "https://fox-dent.github.io/appointments.bhfd/";
+    const NEW_PATIENT_FORMS_URL = "https://patientviewer.com/WebFormsGWT/GWT/WebForms/WebForms.html?DOID=31638&RKID=9571&WSDID=166700";
+    const EXISTING_PATIENT_FORMS_URL = "https://patientviewer.com/WebFormsGWT/GWT/WebForms/WebForms.html?DOID=31638&RKID=9571&WSDID=189407";
+    let bookingInProgress = false;
+    let availabilityRequestId = 0;
+    let modalPreviousFocus = null;
 
-      // ✅ CHANGE THIS to your hosted frontend URL (GitHub Pages / Cloudflare Pages)
-      // Example: "https://calcifer6456.github.io/foxdent-scheduler/"
-      const HOSTED_FRONTEND_URL = "https://fox-dent.github.io/appointments.bhfd/";
-
-      // ✅ Open Dental WebForms (different per patient type)
-      const NEW_PATIENT_FORMS_URL =
-        "https://patientviewer.com/WebFormsGWT/GWT/WebForms/WebForms.html?DOID=31638&RKID=9571&WSDID=166700";
-
-      const EXISTING_PATIENT_FORMS_URL =
-        "https://patientviewer.com/WebFormsGWT/GWT/WebForms/WebForms.html?DOID=31638&RKID=9571&WSDID=189407";
-
-      // ✅ Simple click-lock to prevent duplicate submissions
-      let bookingInProgress = false;
-
-      function showStep(stepId) {
-        document
-          .querySelectorAll('[id^="step"]')
-          .forEach((div) => div.classList.add("hidden"));
-        document.getElementById(stepId).classList.remove("hidden");
+    const el = id => document.getElementById(id);
+    function showStep(stepId) {
+      document.querySelectorAll('section[id^="step"]').forEach(section => section.classList.add('hidden'));
+      el(stepId).classList.remove('hidden');
+      window.scrollTo({top:0,behavior:'instant'});
+    }
+    function showError(id, message) { const node=el(id); node.textContent=message || ''; node.style.display=message ? 'block' : 'none'; }
+    function isBlockedContext() { return !['http:', 'https:'].includes(location.protocol.toLowerCase()); }
+    if (isBlockedContext()) { el('hostedLink').href=HOSTED_FRONTEND_URL; el('hostWarning').style.display='block'; }
+    function updatePatientFormsLink() { el('patientFormsBtn').href=el('patientStatus').value==='existing' ? EXISTING_PATIENT_FORMS_URL : NEW_PATIENT_FORMS_URL; }
+    function goToStep2() { if (!el('patientStatus').value) return alert('Please select New Patient or Existing Patient.'); showStep('step2'); }
+    function goToStep3() {
+      if (!el('appointmentType').value) return alert('Please select an appointment type.');
+      showStep('step3');
+      if (el('appointmentDate').value) fetchAvailabilityForSelectedDate();
+    }
+    function goToStep4() {
+      if (!el('appointmentDate').value || !el('appointmentTime').value || el('appointmentTime').disabled) return alert('Please select an available date and time.');
+      modalPreviousFocus=document.activeElement;
+      el('infoModal').classList.remove('hidden');
+      el('modalContinue').focus();
+    }
+    function continueToPatientInformation() { el('infoModal').classList.add('hidden'); showStep('step4'); el('firstName').focus(); }
+    function goToStep5() {
+      const required=['firstName','lastName','dob','phone','email'];
+      for (const id of required) { if (!el(id).value.trim()) { alert('Please complete all patient information fields.'); el(id).focus(); return; } }
+      if (!el('email').checkValidity()) { alert('Please enter a valid email address.'); el('email').focus(); return; }
+      if (el('dob').value > localToday()) { alert('Date of birth cannot be in the future.'); el('dob').focus(); return; }
+      showStep('step5');
+    }
+    function toggleInsurance() { el('insuranceFields').style.display=el('noInsurance').checked ? 'none' : 'block'; }
+    function localToday() { const parts=new Intl.DateTimeFormat('en-CA',{timeZone:'America/Chicago',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date()); const get=k=>parts.find(p=>p.type===k).value; return `${get('year')}-${get('month')}-${get('day')}`; }
+    el('appointmentDate').min=localToday();
+    el('dob').max=localToday();
+    el('insPolicyHolderDob').max=localToday();
+    el('appointmentType').addEventListener('change', () => { el('appointmentTime').innerHTML='<option value="">Select a date first</option>'; el('appointmentTime').disabled=true; if (el('appointmentDate').value) fetchAvailabilityForSelectedDate(); });
+    el('patientStatus').addEventListener('change', () => { el('appointmentTime').innerHTML='<option value="">Select a date first</option>'; el('appointmentTime').disabled=true; if (el('appointmentDate').value && el('appointmentType').value) fetchAvailabilityForSelectedDate(); });
+    async function fetchAvailabilityForSelectedDate() {
+      const requestId=++availabilityRequestId;
+      const timeSelect=el('appointmentTime');
+      timeSelect.disabled=true;
+      timeSelect.innerHTML='<option value="">Loading available times...</option>';
+      showError('availabilityError','');
+      if (isBlockedContext()) { timeSelect.innerHTML='<option value="">Unable to load times</option>'; showError('availabilityError','Please open the hosted booking link at the top of this page.'); return; }
+      const date=el('appointmentDate').value;
+      if (!date) { timeSelect.innerHTML='<option value="">Select a date first</option>'; return; }
+      if (date < localToday()) { timeSelect.innerHTML='<option value="">Choose a future date</option>'; showError('availabilityError','Please select today or a future date.'); return; }
+      const apptType=el('appointmentType').value;
+      const isNewPatient=el('patientStatus').value==='new';
+      if (!apptType || !el('patientStatus').value) return;
+      try {
+        const url=`${BACKEND_BASE_URL}/availability?date=${encodeURIComponent(date)}&apptType=${encodeURIComponent(apptType)}&isNewPatient=${isNewPatient}&_ts=${Date.now()}`;
+        const res=await fetch(url,{method:'GET',mode:'cors',credentials:'omit',cache:'no-store'});
+        const data=await res.json();
+        if (requestId!==availabilityRequestId) return;
+        if (!res.ok || !data.ok) throw new Error('Availability request failed');
+        timeSelect.innerHTML='';
+        if (!Array.isArray(data.slots) || !data.slots.length) { timeSelect.add(new Option('No available times for this date','')); return; }
+        timeSelect.add(new Option('Select a time',''));
+        data.slots.forEach(slot=>{ if(typeof slot==='string') timeSelect.add(new Option(slot,slot)); });
+        timeSelect.disabled=false;
+      } catch(err) {
+        if (requestId!==availabilityRequestId) return;
+        console.error('Availability error:',err);
+        timeSelect.innerHTML='<option value="">Unable to load times</option>';
+        showError('availabilityError','Unable to load available appointments. Please try selecting the date again or contact our office.');
       }
-
-      function setAvailabilityError(msg) {
-        const el = document.getElementById("availabilityError");
-        if (!msg) {
-          el.style.display = "none";
-          el.textContent = "";
-          return;
+    }
+    function lockBookingUI(locked) {
+      el('confirmBtn').disabled=locked;
+      el('insuranceBackBtn').disabled=locked;
+      el('confirmBtn').textContent=locked?'Booking…':'Confirm Appointment';
+    }
+    async function submitRequest() {
+      if (bookingInProgress) return;
+      if (isBlockedContext()) return alert('Please open the hosted booking link instead.');
+      const appointmentDate=el('appointmentDate').value;
+      const appointmentTime=el('appointmentTime').value;
+      if (!appointmentDate || !appointmentTime || el('appointmentTime').disabled) return alert('Please select an available date and time.');
+      if (appointmentDate < localToday()) return alert('Please select today or a future date.');
+      bookingInProgress=true;
+      lockBookingUI(true);
+      showError('bookingError','');
+      const payload={
+        appointmentDate,appointmentTime,patientStatus:el('patientStatus').value,appointmentType:el('appointmentType').value,
+        patient:{firstName:el('firstName').value.trim(),lastName:el('lastName').value.trim(),dob:el('dob').value,phone:el('phone').value.trim(),email:el('email').value.trim()},
+        insurance:el('noInsurance').checked ? {noInsurance:true} : {noInsurance:false,carrier:el('insCarrier').value.trim(),policyHolderName:el('insPolicyHolderName').value.trim(),policyHolderDob:el('insPolicyHolderDob').value,memberId:el('insMemberId').value.trim(),employer:el('insEmployer').value.trim(),groupId:el('insGroupId').value.trim(),zip:el('insZip').value.trim()}
+      };
+      try {
+        const res=await fetch(`${BACKEND_BASE_URL}/book`,{method:'POST',mode:'cors',credentials:'omit',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload),cache:'no-store'});
+        const data=await res.json();
+        if (!res.ok || !data.ok) throw new Error(data.error || 'Booking failed. Please call our office for assistance.');
+        const summary=el('confirmSummary');
+        summary.replaceChildren();
+        for (const [label,value] of [['Confirmation',data.confirmationId],['Patient',data.patientName],['Date/Time',`${data.appointmentDate} at ${data.appointmentTime}`]]) {
+          const line=document.createElement('div'); const bold=document.createElement('strong'); bold.textContent=`${label}: `; line.append(bold,document.createTextNode(String(value||''))); summary.append(line);
         }
-        el.style.display = "block";
-        el.textContent = msg;
+        updatePatientFormsLink();
+        showStep('step6');
+      } catch(err) {
+        console.error('Booking error:',err);
+        showError('bookingError',err.message || 'Unable to book your appointment. Please call our office for assistance.');
+        bookingInProgress=false;
+        lockBookingUI(false);
       }
-
-      function isBlockedContext() {
-        // Works for: file://, edge://external-file, about:, etc.
-        const proto =
-          location && location.protocol ? location.protocol.toLowerCase() : "";
-        return proto !== "http:" && proto !== "https:";
-      }
-
-      // Show warning immediately if opened from attachment/local mode
-      (function initHostWarning() {
-        if (isBlockedContext()) {
-          const warning = document.getElementById("hostWarning");
-          const link = document.getElementById("hostedLink");
-          link.href = HOSTED_FRONTEND_URL;
-          warning.style.display = "block";
-        }
-      })();
-
-      function updatePatientFormsLink() {
-        const status = document.getElementById("patientStatus").value;
-
-        // Default to new patient link if somehow blank
-        const formsUrl =
-          status === "existing" ? EXISTING_PATIENT_FORMS_URL : NEW_PATIENT_FORMS_URL;
-
-        const btn = document.getElementById("patientFormsBtn");
-        if (btn) btn.href = formsUrl;
-      }
-
-      function goToStep2() {
-        const status = document.getElementById("patientStatus").value;
-        if (!status) return alert("Please select New Patient or Existing Patient.");
-        showStep("step2");
-      }
-
-      function goToStep3() {
-        const type = document.getElementById("appointmentType").value;
-        if (!type) return alert("Please select an appointment type.");
-        showStep("step3");
-      }
-
-      function goToStep4() {
-        const forWhom = document.getElementById("forWhom").value;
-        if (!forWhom)
-          return alert(
-            "Please choose whether this appointment is for yourself or someone else."
-          );
-        showStep("step4");
-      }
-
-      function goToStep5() {
-        const first = document.getElementById("firstName").value.trim();
-        const last = document.getElementById("lastName").value.trim();
-        const dob = document.getElementById("dob").value;
-        const phone = document.getElementById("phone").value.trim();
-        const email = document.getElementById("email").value.trim();
-
-        if (!first || !last || !dob || !phone || !email) {
-          return alert("Please complete all patient information fields.");
-        }
-        showStep("step5");
-      }
-
-      function goToStep6() {
-        showStep("step6");
-      }
-
-      function toggleInsurance() {
-        const noIns = document.getElementById("noInsurance").checked;
-        document.getElementById("insuranceFields").style.display = noIns
-          ? "none"
-          : "block";
-      }
-
-      async function fetchAvailabilityForSelectedDate() {
-        setAvailabilityError("");
-
-        // ✅ If opened from attachment/local mode, don’t even try
-        if (isBlockedContext()) {
-          const timeSelect = document.getElementById("appointmentTime");
-          timeSelect.innerHTML = '<option value="">Unable to load times</option>';
-          setAvailabilityError(
-            "This page was opened as a file/attachment (ex: Outlook / edge://external-file).\n" +
-              "iPhone browsers block online scheduling requests in this mode.\n\n" +
-              "Please open the hosted booking link at the top of this page."
-          );
-          return;
-        }
-
-        const date = document.getElementById("appointmentDate").value;
-        const timeSelect = document.getElementById("appointmentTime");
-        timeSelect.innerHTML = '<option value="">Loading available times...</option>';
-        if (!date) return;
-
-        const apptType = document.getElementById("appointmentType").value;
-        const isNewPatient = document.getElementById("patientStatus").value === "new";
-
-        try {
-          const ts = Date.now();
-          const url =
-            `${BACKEND_BASE_URL}/availability?date=${encodeURIComponent(date)}` +
-            `&apptType=${encodeURIComponent(apptType)}` +
-            `&isNewPatient=${isNewPatient}` +
-            `&_ts=${ts}`;
-
-          const res = await fetch(url, {
-            method: "GET",
-            mode: "cors",
-            credentials: "omit",
-            cache: "no-store",
-          });
-
-          const text = await res.text();
-          let data;
-          try {
-            data = JSON.parse(text);
-          } catch {
-            data = { ok: false, error: text };
-          }
-
-          if (!res.ok || !data.ok) {
-            console.error("availability error:", { status: res.status, text, data });
-            timeSelect.innerHTML = '<option value="">Unable to load times</option>';
-            setAvailabilityError(
-              `Unable to load times.\nHTTP ${res.status}\n${String(
-                data.error || text || ""
-              ).slice(0, 300)}`
-            );
-            return;
-          }
-
-          timeSelect.innerHTML = '<option value="">Select a time</option>';
-
-          if (!data.slots || data.slots.length === 0) {
-            timeSelect.innerHTML =
-              '<option value="">No available times for this date</option>';
-            return;
-          }
-
-          data.slots.forEach((slot) => {
-            const opt = document.createElement("option");
-            opt.value = slot;
-            opt.textContent = slot;
-            timeSelect.appendChild(opt);
-          });
-        } catch (err) {
-          console.error("availability network error:", err);
-          timeSelect.innerHTML = '<option value="">Unable to load times</option>';
-          setAvailabilityError(
-            `Unable to load times.\nNetwork error:\n${String(err).slice(0, 300)}`
-          );
-        }
-      }
-
-      function lockBookingUI(locked) {
-        const confirmBtn = document.getElementById("confirmBtn");
-        const backBtn = document.querySelector('#step6 .button-row .back-btn');
-
-        if (locked) {
-          if (confirmBtn) {
-            confirmBtn.disabled = true;
-            confirmBtn.dataset.originalText = confirmBtn.textContent || "Confirm Appointment";
-            confirmBtn.textContent = "Booking…";
-          }
-          if (backBtn) backBtn.disabled = true;
-        } else {
-          if (confirmBtn) {
-            confirmBtn.disabled = false;
-            confirmBtn.textContent = confirmBtn.dataset.originalText || "Confirm Appointment";
-          }
-          if (backBtn) backBtn.disabled = false;
-        }
-      }
-
-      async function submitRequest() {
-        // ✅ Super simple double-click prevention
-        if (bookingInProgress) return;
-        bookingInProgress = true;
-        lockBookingUI(true);
-
-        try {
-          // ✅ If opened from attachment/local mode, block booking too
-          if (isBlockedContext()) {
-            bookingInProgress = false;
-            lockBookingUI(false);
-            return alert(
-              "This page was opened as a file/attachment (ex: Outlook preview).\n" +
-                "Please open the hosted booking link instead."
-            );
-          }
-
-          const appointmentDate = document.getElementById("appointmentDate").value;
-          const appointmentTime = document.getElementById("appointmentTime").value;
-          if (!appointmentDate || !appointmentTime) {
-            bookingInProgress = false;
-            lockBookingUI(false);
-            return alert("Please select a date and time.");
-          }
-
-          const patientStatus = document.getElementById("patientStatus").value;
-          const appointmentType = document.getElementById("appointmentType").value;
-
-          const payload = {
-            appointmentDate,
-            appointmentTime,
-            patientStatus,
-            appointmentType,
-            patient: {
-              firstName: document.getElementById("firstName").value.trim(),
-              lastName: document.getElementById("lastName").value.trim(),
-              dob: document.getElementById("dob").value,
-              phone: document.getElementById("phone").value.trim(),
-              email: document.getElementById("email").value.trim(),
-            },
-            insurance: document.getElementById("noInsurance").checked
-              ? { noInsurance: true }
-              : {
-                  noInsurance: false,
-                  carrier: document.getElementById("insCarrier").value.trim(),
-                  policyHolderName: document
-                    .getElementById("insPolicyHolderName")
-                    .value.trim(),
-                  policyHolderDob: document.getElementById("insPolicyHolderDob").value,
-                  memberId: document.getElementById("insMemberId").value.trim(),
-                  employer: document.getElementById("insEmployer").value.trim(),
-                  groupId: document.getElementById("insGroupId").value.trim(),
-                  zip: document.getElementById("insZip").value.trim(),
-                },
-          };
-
-          const res = await fetch(`${BACKEND_BASE_URL}/book`, {
-            method: "POST",
-            mode: "cors",
-            credentials: "omit",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(payload),
-            cache: "no-store",
-          });
-
-          const text = await res.text();
-          let data;
-          try {
-            data = JSON.parse(text);
-          } catch {
-            data = { ok: false, error: text };
-          }
-
-          if (!res.ok || !data.ok) {
-            console.error("book error:", { status: res.status, data, text });
-            bookingInProgress = false;
-            lockBookingUI(false);
-            return alert(data.error || "Booking failed. Please try again.");
-          }
-
-          document.getElementById("confirmSummary").innerHTML = `
-            <b>Confirmation:</b> ${data.confirmationId}<br>
-            <b>Patient:</b> ${data.patientName}<br>
-            <b>Date/Time:</b> ${data.appointmentDate} at ${data.appointmentTime}<br>
-          `;
-
-          // ✅ Set the correct WebForms link (new vs existing) on the confirmation page
-          updatePatientFormsLink();
-
-          showStep("step7");
-          // No unlock needed after success; user is on step7
-        } catch (err) {
-          console.error(err);
-          bookingInProgress = false;
-          lockBookingUI(false);
-          alert("Unable to book appointment right now. Please try again.");
-        }
-      }
-    </script>
-  </body>
+    }
+  </script>
+</body>
 </html>
